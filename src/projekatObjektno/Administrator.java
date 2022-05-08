@@ -6,10 +6,11 @@ public class Administrator extends Zaposleni {
 		super();
 	}
 
-	public Administrator(String korisnickoIme, String korisnickaSifra) {
-		super(korisnickoIme, korisnickaSifra);
-		// TODO Auto-generated constructor stub
+	public Administrator(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
+			String korisnickaSifra, String korisnickoIme) {
+		super(id, ime, prezime, jMBG, adresa, pol, korisnickaSifra, korisnickoIme);
 	}
+	
 	
 
 }

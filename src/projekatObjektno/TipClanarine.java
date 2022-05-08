@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class TipClanarine {
-	protected int id;
+	protected int id;/*String umesto int*/
     protected String naziv;
     protected double cena;
     

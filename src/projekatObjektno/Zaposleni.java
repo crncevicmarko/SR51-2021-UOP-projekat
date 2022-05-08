@@ -4,15 +4,18 @@ public abstract class Zaposleni extends Osoba{
 	protected String korisnickoIme;
     protected String korisnickaSifra;
     
-    public Zaposleni() {
+    
+	public Zaposleni() {
 		super();
 		this.korisnickaSifra = "";
 		this.korisnickoIme = "";
+		
 	}
-	public Zaposleni(String korisnickoIme, String korisnickaSifra) {
-		super();
-		this.korisnickoIme = korisnickoIme;
+	public Zaposleni(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,String korisnickaSifra,String korisnickoIme) {
+		super(id, ime, prezime, jMBG, adresa, pol);
 		this.korisnickaSifra = korisnickaSifra;
+		this.korisnickoIme = korisnickoIme;
+	
 	}
 	public String getKorisnickoIme() {
 		return korisnickoIme;

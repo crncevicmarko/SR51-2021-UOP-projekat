@@ -1,0 +1,4 @@
+NaucnaFantastika,g
+Roman,m
+Krimi,k
+Akcija,p

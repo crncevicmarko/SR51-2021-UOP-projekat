@@ -7,16 +7,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ClanBiblioteke extends Osoba{
-	protected int brClankarte;
+	protected String brClankarte;/*String umesto int*/
     protected LocalDate datumPoslednjeUplate;
     protected int brojMeseciClanarine;
     protected boolean aktivan;
     protected TipClanarine tipClanarine;
     
     
-	public ClanBiblioteke(int brClankarte, LocalDate datumPoslednjeUplate, int brojMeseciClanarine, boolean aktivan,
+	
+	public ClanBiblioteke(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
+			String brClankarte, LocalDate datumPoslednjeUplate, int brojMeseciClanarine, boolean aktivan,
 			TipClanarine tipClanarine) {
-		super();
+		super(id, ime, prezime, jMBG, adresa, pol);
 		this.brClankarte = brClankarte;
 		this.datumPoslednjeUplate = datumPoslednjeUplate;
 		this.brojMeseciClanarine = brojMeseciClanarine;
@@ -26,17 +28,17 @@ public class ClanBiblioteke extends Osoba{
 	
 	public ClanBiblioteke() {
 		super();
-		this.brClankarte = 0;
+		this.brClankarte = "";
 		this.datumPoslednjeUplate = null;
 		this.brojMeseciClanarine = 0;
 		this.aktivan = false;
 		this.tipClanarine = null;
 		
 	}
-	public int getBrClankarte() {
+	public String getBrClankarte() {
 		return brClankarte;
 	}
-	public void setBrClankarte(int brClankarte) {
+	public void setBrClankarte(String brClankarte) {
 		this.brClankarte = brClankarte;
 	}
 	public LocalDate getDatumPoslednjeUplate() {
@@ -88,14 +90,16 @@ public class ClanBiblioteke extends Osoba{
 			int brojMeseciClanarine = Integer.parseInt(nizClanova[8]);
 			boolean aktivan = Boolean.parseBoolean(nizClanova[9]);
 //			TipClanarine tipClanarine = new TipClanarine(nizClanova[10],Double.parseDouble(adresaClana));
-			ClanBiblioteke clan = new ClanBiblioteke(brClankarte,datumPoslednjeUplate,brojMeseciClanarine,aktivan, tipClanarine);
-			clanovi.add(clan);
+//			ClanBiblioteke clan = new ClanBiblioteke(brClankarte,datumPoslednjeUplate,brojMeseciClanarine,aktivan, tipClanarine);
+//			clanovi.add(clan);
 			
 		}
 		citanje.close();
 		return clanovi;
 		
 	}
+	
+	
 	@Override
 	public String toString() {
 		return brClankarte + "," + datumPoslednjeUplate+ "," + brojMeseciClanarine + "," + aktivan + ","+ tipClanarine;

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PrimerakKnjige {
-	protected int id;
+	protected int id;/*String umesto int*/
     protected int brStrana;
     protected boolean tipPoveza;
     protected int godinaStampanja;

@@ -25,7 +25,7 @@ public class IzdavanjeKnjige {
 	public IzdavanjeKnjige() {
 		this.datumIznajmljivanja = null;
 		this.datumVracanja= null;
-//		this.zaposleni = new Zaposleni(); /*proveri nesto ne radi*/
+		this.zaposleni = null; 
 		this.clan = new ClanBiblioteke();
 		this.primerak = new PrimerakKnjige();
 	}
@@ -74,8 +74,17 @@ public class IzdavanjeKnjige {
 			String [] niz = line.split(",");
 			LocalDate datumIznajmljivanja = LocalDate.parse(niz[0]);
 			LocalDate datumVracanja = LocalDate.parse(niz[1]);
-			
-			izdknjige.add();
+//			String id = niz[0];
+//			String ime = niz[1];
+//			String prezime = niz[2];
+//			String jMBG = niz[3];
+//			String adresa = niz[4];
+//			EmnumPol defpol = EmnumPol.MUSKI;
+//			for(EmnumPol pol:EmnumPol.values()) {
+//				if(pol.name().equalsIgnoreCase(polClana)) {
+//					defpol = pol; 
+//				}
+//			Zaposleni zaposleni = new Zaposleni(id,ime,prezime,jMBG,adresa,pol,korisnickaSifra,korisnickoIme);
 			
 		}
 		citaj.close();

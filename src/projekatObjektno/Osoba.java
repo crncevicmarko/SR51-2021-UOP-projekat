@@ -1,17 +1,35 @@
 package projekatObjektno;
 
 public abstract class Osoba {
-	protected int id;
+	protected String id;
     protected String ime;
     protected String prezime;
     protected String JMBG;
     protected String adresa;
     protected EmnumPol pol;
     
-	public int getId() {
+    
+	public Osoba(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol) {
+		this.id = id;
+		this.ime = ime;
+		this.prezime = prezime;
+		JMBG = jMBG;
+		this.adresa = adresa;
+		this.pol = pol;
+	}
+	public Osoba() {
+		this.id = "" ;
+		this.ime = "";
+		this.prezime = "";
+		this.JMBG = "";
+		this.adresa = "";
+		this.pol = null;
+	}
+	
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getIme() {
