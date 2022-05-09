@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PrimerakKnjige {
-	protected int id;/*String umesto int*/
+	protected String id;
     protected int brStrana;
     protected boolean tipPoveza;
     protected int godinaStampanja;
@@ -17,7 +17,7 @@ public class PrimerakKnjige {
     protected Knjiga knjiga;
     
     
-	public PrimerakKnjige(int id, int brStrana, boolean tipPoveza, int godinaStampanja, boolean jeliIznajmljena,
+	public PrimerakKnjige(String id, int brStrana, boolean tipPoveza, int godinaStampanja, boolean jeliIznajmljena,
 			Knjiga knjiga) {
 		this.id = id;
 		this.brStrana = brStrana;
@@ -28,17 +28,17 @@ public class PrimerakKnjige {
 	}
 	
 	public PrimerakKnjige() {
-		this.id = 0;
+		this.id = "";
 		this.brStrana = 0;
 		this.tipPoveza = false;
 		this.godinaStampanja = 0;
 		this.jeliIznajmljena = false;
 		this.knjiga = new Knjiga();
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public int getBrStrana() {
@@ -91,8 +91,8 @@ public class PrimerakKnjige {
 			int godinaStampanja = Integer.parseInt(niz[3]);
 			boolean jeliIznajmljena = Boolean.parseBoolean(niz[4]);
 //			Knjiga knjiga = new Knjiga(opis,niz[5]);
-			PrimerakKnjige primerak = new PrimerakKnjige(id,brStrana,tipPoveza,godinaStampanja,jeliIznajmljena,knjiga);
-			knjige.add(primerak);	
+//			PrimerakKnjige primerak = new PrimerakKnjige(id,brStrana,tipPoveza,godinaStampanja,jeliIznajmljena,knjiga);
+//			knjige.add(primerak);	
 		}
 		citaj.close();
 		return null;

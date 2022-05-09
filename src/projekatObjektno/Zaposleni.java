@@ -4,7 +4,7 @@ public abstract class Zaposleni extends Osoba{
 	protected String korisnickoIme;
     protected String korisnickaSifra;
     
-    
+
 	public Zaposleni() {
 		super();
 		this.korisnickaSifra = "";
@@ -32,11 +32,12 @@ public abstract class Zaposleni extends Osoba{
 
 	@Override
 	public String toString() {
-		return "Zaposleni [korisnickoIme=" + korisnickoIme + ", korisnickaSifra=" + korisnickaSifra + "]";
-//	vrati se treba ju ti elementi iz Osoba da se upisu u toString
+		return  korisnickoIme + ";" + korisnickaSifra;
 	}
 	
-	
+	public void DodatiNoveClanove() {
+		
+	}
     
     
 

@@ -36,7 +36,7 @@ public class ZanrKnjige {
 
 	@Override
 	public String toString() {
-		return "["+oznaka + "," + opis+"]";
+		return oznaka + ";" + opis;
 	}
 	
 //	public ArrayList<ZanrKnjige> citajFajl(String imeFajla) throws IOException{
