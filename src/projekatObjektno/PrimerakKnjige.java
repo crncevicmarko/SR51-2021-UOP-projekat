@@ -74,41 +74,40 @@ public class PrimerakKnjige {
 
 	@Override
 	public String toString() {
-		return "PrimerakKnjige [id=" + id + ", brStrana=" + brStrana + ", tipPoveza=" + tipPoveza + ", godinaStampanja="
-				+ godinaStampanja + ", jeliIznajmljena=" + jeliIznajmljena+ "]";
+		return id + ";" + brStrana + ";" + tipPoveza + ";"+ godinaStampanja + ";" + jeliIznajmljena+";"+knjiga;
 	}
 	
-	public ArrayList<PrimerakKnjige> citajFajl(String imeFajla) throws IOException{
-		ArrayList<PrimerakKnjige> knjige = new ArrayList<PrimerakKnjige>();
-		File fajl = new File(imeFajla);
-		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
-		String line = null;
-		while((line = citaj.readLine())!= null) {
-			String [] niz = line.split(",");
-			int id  = Integer.parseInt(niz[0]);
-			int brStrana = Integer.parseInt(niz[1]);
-			boolean tipPoveza= Boolean.parseBoolean(niz[2]);
-			int godinaStampanja = Integer.parseInt(niz[3]);
-			boolean jeliIznajmljena = Boolean.parseBoolean(niz[4]);
-//			Knjiga knjiga = new Knjiga(opis,niz[5]);
-//			PrimerakKnjige primerak = new PrimerakKnjige(id,brStrana,tipPoveza,godinaStampanja,jeliIznajmljena,knjiga);
-//			knjige.add(primerak);	
-		}
-		citaj.close();
-		return null;
-    
-	
-	}
-	public static void upisiFajl(ArrayList<PrimerakKnjige> tipUpis, String imeFajla) throws IOException{
-		ArrayList<PrimerakKnjige> primerak = tipUpis;
-		File file = new File(imeFajla);
-		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
-		for(PrimerakKnjige p: primerak) {
-			String pr = p.getBrStrana()+ ";"+ p.getGodinaStampanja()+";"+p.getId()+";"+p.getKnjiga();
-			writer.write(pr);
-			writer.newLine();;
- 		}
-		writer.close();
-	
-	}
+//	public ArrayList<PrimerakKnjige> citajFajl(String imeFajla) throws IOException{
+//		ArrayList<PrimerakKnjige> knjige = new ArrayList<PrimerakKnjige>();
+//		File fajl = new File(imeFajla);
+//		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
+//		String line = null;
+//		while((line = citaj.readLine())!= null) {
+//			String [] niz = line.split(",");
+//			int id  = Integer.parseInt(niz[0]);
+//			int brStrana = Integer.parseInt(niz[1]);
+//			boolean tipPoveza= Boolean.parseBoolean(niz[2]);
+//			int godinaStampanja = Integer.parseInt(niz[3]);
+//			boolean jeliIznajmljena = Boolean.parseBoolean(niz[4]);
+////			Knjiga knjiga = new Knjiga(opis,niz[5]);
+////			PrimerakKnjige primerak = new PrimerakKnjige(id,brStrana,tipPoveza,godinaStampanja,jeliIznajmljena,knjiga);
+////			knjige.add(primerak);	
+//		}
+//		citaj.close();
+//		return null;
+//    
+//	
+//	}
+//	public static void upisiFajl(ArrayList<PrimerakKnjige> tipUpis, String imeFajla) throws IOException{
+//		ArrayList<PrimerakKnjige> primerak = tipUpis;
+//		File file = new File(imeFajla);
+//		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
+//		for(PrimerakKnjige p: primerak) {
+//			String pr = p.getBrStrana()+ ";"+ p.getGodinaStampanja()+";"+p.getId()+";"+p.getKnjiga();
+//			writer.write(pr);
+//			writer.newLine();;
+// 		}
+//		writer.close();
+//	
+//	}
 }

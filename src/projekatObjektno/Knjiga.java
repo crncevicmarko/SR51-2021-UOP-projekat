@@ -94,9 +94,7 @@ public class Knjiga {
 	}
 	@Override
 	public String toString() {
-		return "Knjiga [id=" + id + ", naslovKnjige=" + naslovKnjige + ", originalsniNaslovKnjige="
-				+ originalsniNaslovKnjige + ", pisac=" + pisac + ", godinaObjavljanjaKnjige=" + godinaObjavljanjaKnjige
-				+ ", jezikOriginala=" + jezikOriginala + ", opisKnjige=" + opisKnjige + "]";
+		return id + ";" + naslovKnjige + ";"+ originalsniNaslovKnjige + ";" + pisac + ";" + godinaObjavljanjaKnjige+ ";" + jezikOriginala + ";" + opisKnjige;
 	}
     
 //	public ArrayList<Knjiga> citajFajl(String imeFajla) throws IOException{

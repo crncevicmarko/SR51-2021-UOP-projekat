@@ -29,12 +29,11 @@ public abstract class Zaposleni extends Osoba{
 	public void setKorisnickaSifra(String korisnickaSifra) {
 		this.korisnickaSifra = korisnickaSifra;
 	}
-
+	
 	@Override
 	public String toString() {
-		return  korisnickoIme + ";" + korisnickaSifra;
+		return id+ ";" + ime + ";" + prezime + ";" + JMBG + ";" + adresa + ";" + pol+";"+korisnickoIme + ";" + korisnickaSifra ;
 	}
-	
 	public void DodatiNoveClanove() {
 		
 	}

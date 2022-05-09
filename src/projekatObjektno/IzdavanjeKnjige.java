@@ -26,8 +26,8 @@ public class IzdavanjeKnjige {
 		this.datumIznajmljivanja = null;
 		this.datumVracanja= null;
 		this.zaposleni = null; 
-		this.clan = new ClanBiblioteke();
-		this.primerak = new PrimerakKnjige();
+		this.clan = null;
+		this.primerak = null;
 	}
 	public LocalDate getDatumIznajmljivanja() {
 		return datumIznajmljivanja;

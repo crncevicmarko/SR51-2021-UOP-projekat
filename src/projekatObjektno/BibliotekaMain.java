@@ -15,24 +15,27 @@ public class BibliotekaMain {
 //		}
 //		System.out.println(biblioteka.zanrovi);
 		Knjiga knjiga = new Knjiga("1","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
-		Knjiga knjiga1 = new Knjiga("2","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
-		Knjiga knjiga2 = new Knjiga("3","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
+//		Knjiga knjiga1 = new Knjiga("2","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
+//		Knjiga knjiga2 = new Knjiga("3","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
 		try {
 			biblioteka.upisiFajl(knjiga);
-			biblioteka.upisiFajl(knjiga1);
-			biblioteka.upisiFajl(knjiga2);
+//			biblioteka.upisiFajl(knjiga1);
+//			biblioteka.upisiFajl(knjiga2);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		biblioteka.azurirajKnjigu("2");
-		
+//		biblioteka.azurirajKnjigu("2");
+//		
 //		Administrator admin = new Administrator("1","Zika","Zikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"ZikaCAr123","ZikaZ");
 //		biblioteka.upisiFajlAdministartor(admin);
 //		System.out.println(biblioteka.citajFajl("src/projekatObjektno/knjige.txt"));
 //		TipClanarine tip = new TipClanarine("nvjvr","nvjnvje",0);
 //		biblioteka.upisiTipClanarine(tip);
-//		ClanBiblioteke clan = new ClanBiblioteke("1","Zika","Zikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"vyvbi",LocalDate.parse("2009-02-03"),6,true,);
+//		ClanBiblioteke clan = new ClanBiblioteke("1","Zika","Zikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"vyvbi",LocalDate.parse("2009-02-03"),6,true,tip);
 //		biblioteka.upisiFajlClanBiblioteke(clan);
+//		PrimerakKnjige primerak = new PrimerakKnjige("1", 2, true, 1990, false,knjiga);
+//		biblioteka.upisiPrimerakKnjige(primerak);
+//		System.out.println(biblioteka.citajclanove("src/projekatObjektno/clanbiblioteke.txt"));
 //		System.out.println(biblioteka.citajclanove("src/projekatObjektno/clanbiblioteke.txt"));
 //		System.out.println(biblioteka.citajAdministratora("src/projekatObjektno/administartor.txt"));
 	}

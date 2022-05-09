@@ -2,3 +2,5 @@
 2;odrasli;150.0
 3;administaratori;250.0
 4;penzioneri;350.0
+nvjnvje;nvjvr;0.0
+nvjnvje;nvjvr;0.0
