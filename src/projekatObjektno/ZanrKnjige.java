@@ -9,10 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ZanrKnjige {
+	protected String id;
 	protected String oznaka;
 	protected String opis;
 
-	public ZanrKnjige(String oznaka, String opis) {
+	public ZanrKnjige(String id,String oznaka, String opis) {
+		this.id = id;
 		this.oznaka = oznaka;
 		this.opis = opis;
 	}
@@ -20,6 +22,13 @@ public class ZanrKnjige {
 	public ZanrKnjige() {
 		this.oznaka = "";
 		this.opis = "";
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getOznaka() {
 		return oznaka;
@@ -36,8 +45,9 @@ public class ZanrKnjige {
 
 	@Override
 	public String toString() {
-		return oznaka + ";" + opis;
+		return id + ";"+oznaka + ";" + opis;
 	}
+
 	
 //	public ArrayList<ZanrKnjige> citajFajl(String imeFajla) throws IOException{
 //		ArrayList<ZanrKnjige> zanrknjige = new ArrayList<ZanrKnjige>();

@@ -23,6 +23,7 @@ public class Biblioteka {
 	protected ArrayList<Knjiga> knjige;
 	protected ArrayList<ZanrKnjige> zanrovi; 
 	protected ArrayList<Administrator> admin;
+	protected ArrayList<Zaposleni> zaoposleni;
 	protected ArrayList<ClanBiblioteke> clanbiblioteke;
 //	protected ArrayList<IzdavanjeKnjige> izdavanjeKnjige;
 	protected ArrayList<TipClanarine> tipClanarine;
@@ -43,16 +44,7 @@ public class Biblioteka {
 		this.zatvaranje = zatvaranje;
 		this.id = id;
 		this.knjige = null;
-		try {
-			this.tipClanarine = citajClanarine("src/projekatObjektno/tipclanarine.txt");
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			this.zanrovi = citajZanroveIzFajla("src/projekatObjektno/zanrovi.txt");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 	}
 	public Biblioteka() {
 		this.naziv = "";
@@ -132,7 +124,12 @@ public class Biblioteka {
 	public void setTipClanarine(ArrayList<TipClanarine> tipClanarine) {
 		this.tipClanarine = tipClanarine;
 	}
-	
+	public ArrayList<Zaposleni> getZaoposleni() {
+		return zaoposleni;
+	}
+	public void setZaoposleni(ArrayList<Zaposleni> zaoposleni) {
+		this.zaoposleni = zaoposleni;
+	}
 	public void obrisiKnjigu(String id) throws IOException {
 //		ArrayList<Knjiga> knjige = new ArrayList<Knjiga>();
 		File fajl = new File("src/projekatObjektno/knjige.txt");
@@ -202,8 +199,14 @@ public class Biblioteka {
 				}
 			}
 			String opisKnjige = niz[1];
-			ZanrKnjige zanr = zanrovi.get(1);
-			Knjiga knjiga = new Knjiga( id, naslovKnjige,originalsniNaslovKnjige,pisac,godinaObjavljanjaKnjige,jezikOriginala,opisKnjige,zanr);
+			ArrayList<ZanrKnjige> zanrovi = citajZanroveIzFajla("src/projekatObjektno/zanrovi.txt");
+			ZanrKnjige zanr1 = null;
+			for (ZanrKnjige z : zanrovi) {
+				if(z.getId().equals(niz[7])) {
+					zanr1 = z;
+				}
+			}
+			Knjiga knjiga = new Knjiga( id, naslovKnjige,originalsniNaslovKnjige,pisac,godinaObjavljanjaKnjige,jezikOriginala,opisKnjige,zanr1);
 			knjige.add(knjiga);
 		}
 		citaj.close();
@@ -229,14 +232,23 @@ public class Biblioteka {
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
-			String [] niz = line.split(",");
-			String oznaka = niz[0];
-			String opis = niz[1];
-			ZanrKnjige zanr = new ZanrKnjige(oznaka,opis);
+			String [] niz = line.split(";");
+			String id = niz[0];
+			String oznaka = niz[1];
+			String opis = niz[2];
+			ZanrKnjige zanr = new ZanrKnjige(id,oznaka,opis);
 			zanrknjige.add(zanr);
 		}
 		citaj.close();
 		return zanrknjige;	
+	}
+	public void upisiZanrKnjig (ZanrKnjige z) throws IOException{
+		File file = new File("src/projekatObjektno/zanrovi.txt");
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		String sb = z.getId() + ";"+ z.getOznaka() + ";"+ z.getOpis();
+		writer.write(sb);
+		writer.newLine();
+		writer.close();
 	}
 	/*------------------------------------------------------------------------------------------------------------------------------------------------------*/
 	public void upisiFajl(Biblioteka k ) throws IOException{
@@ -251,9 +263,7 @@ public class Biblioteka {
 		writer.close();
 		
 	}
-	/*napisati citanje i pisati u fajl*/
-	
-	
+
 	/*AdministartorArrayLista----------------------------------------------------------------------------------------------------------------------------*/
 	public ArrayList<Administrator> citajAdministratora(String imeFajla) throws IOException{
 		ArrayList<Administrator> administartor = new ArrayList<Administrator>();
@@ -334,7 +344,7 @@ public class Biblioteka {
 	}
 	
 	/*ClanBibliotekeArrayLista-------------------------------------------------------------------------------------------------------------------------------*/
-	public static ArrayList<ClanBiblioteke> citajclanove(String fajlClanovi)throws IOException{
+	public static ArrayList<ClanBiblioteke> citajClanove(String fajlClanovi)throws IOException{
 		ArrayList<ClanBiblioteke> clanovi = new ArrayList<ClanBiblioteke>();
 		File claoviFile = new File(fajlClanovi);
 		BufferedReader citanje = new BufferedReader(new FileReader(claoviFile));
@@ -360,8 +370,6 @@ public class Biblioteka {
 			ArrayList<TipClanarine> tip = citajClanarine("src/projekatObjektno/tipclanarine.txt");
 			TipClanarine tip1 = null;
 			for (TipClanarine t : tip) {
-				System.out.println(nizClanova[10]);
-				System.out.println(t.getId());
 				if(t.getId().equals(nizClanova[10])) {
 					tip1 = t;
 				}
@@ -415,31 +423,67 @@ public class Biblioteka {
 	
 	
 	/*IzdavanjeKnjigeArrayLista------------------------------------------------------------------------------------------------------------------------------*/
-//	public ArrayList<IzdavanjeKnjige> citajIzdavanjeKnjige(String imeFajla) throws IOException{
-//		ArrayList<IzdavanjeKnjige> izdknjige = new ArrayList<IzdavanjeKnjige>();
-//		File fajl = new File(imeFajla);
-//		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
-//		String line = null;
-//		while((line = citaj.readLine())!= null) {
-//			String [] niz = line.split(",");
-//			LocalDate datumIznajmljivanja = LocalDate.parse(niz[0]);
-//			LocalDate datumVracanja = LocalDate.parse(niz[1]);
-//			ArrayList<> tip = citajClanarine("src/projekatObjektno/tipclanarine.txt");
-//			TipClanarine tip1 = null;
-//			for (TipClanarine t : tip) {
-//				System.out.println(nizClanova[10]);
-//				System.out.println(t.getId());
-//				if(t.getId().equals(nizClanova[10])) {
-//					tip1 = t;
-//				}
-//			}
-//			
-//		}
-//		citaj.close();
-//		return izdknjige;
-//		
-//	}
+	public ArrayList<IzdavanjeKnjige> citajIzdavanjeKnjige(String imeFajla) throws IOException{
+		ArrayList<IzdavanjeKnjige> izdknjige = new ArrayList<IzdavanjeKnjige>();
+		File fajl = new File(imeFajla);
+		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
+		String line = null;
+		while((line = citaj.readLine())!= null) {
+			String [] niz = line.split(",");
+			LocalDate datumIznajmljivanja = LocalDate.parse(niz[0]);
+			LocalDate datumVracanja = LocalDate.parse(niz[1]);
+			ArrayList<ClanBiblioteke> clanovi = citajClanove("src/projekatObjektno/clanbiblioteke.txt");
+			ClanBiblioteke clan1 = null;
+			for (ClanBiblioteke t : clanovi) {
+				if(t.getId().equals(niz[3])) {
+					clan1 = t;
+				}
+			}
+			ArrayList<Bibliotekar> bibliotekari = citajBibliotekara("src/projekatObjektno/bibliotekar.txt");
+			Zaposleni zaposleni = null;
+			for (Bibliotekar t : bibliotekari) {
+				if(t.getId().equals(niz[2])) {
+					zaposleni = t;
+				}
+			}
+			if(zaposleni == null) { /*ako nje nasao bibliotekara provera da li ima administrator sa id*/
+				ArrayList<Administrator> administartor = citajAdministratora("src/projekatObjektno/administrator.txt");
+				for (Administrator t : administartor) {
+					if(t.getId().equals(niz[2])) {
+						zaposleni = t;
+					}
+				}
+			}
+			ArrayList<PrimerakKnjige> primerciKnjige = citajPrimerke("src/projekatObjektno/primerakKnjige.txt");
+			PrimerakKnjige primerKnjige = null;
+			for (PrimerakKnjige t : primerciKnjige) {
+				if(t.getId().equals(niz[4])) {
+					primerKnjige = t;
+				}
+			}
+			IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIznajmljivanja,datumVracanja,zaposleni,clan1,primerKnjige);
+			izdknjige.add(izdavanje);
+		}
+		citaj.close();
+		return izdknjige;
+		
+	}
 	
+	public void upisiIzdavanjeKnjige(IzdavanjeKnjige t) throws IOException{
+//		ArrayList<TipClanarine> tip = tipUpis;
+		File file = new File("src/projekatObjektno/izdavanjeKnjige.txt");
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
+//		for(TipClanarine t:tip) {
+			String sb = t.getDatumIznajmljivanja()+ ";"+ t.getDatumVracanja()+ ";"+t.getZaposleni()+ ";"+ t.getClan()+ ";"+ t.getPrimerak();
+			writer.write(sb);
+			writer.newLine();;
+// 		}
+		writer.close();
+	}
+	
+	
+	
+	/*PrimerakKnjigeArrayLista---------------------------------------------------------------------------------------------------------------------------------*/
 	public ArrayList<PrimerakKnjige> citajPrimerke(String imeFajla) throws IOException{
 		ArrayList<PrimerakKnjige> primerakKnjige = new ArrayList<PrimerakKnjige>();
 		File fajl = new File(imeFajla);
@@ -455,8 +499,6 @@ public class Biblioteka {
 			ArrayList<Knjiga> knjiga = citajKnjige("src/projekatObjektno/knjige.txt");
 			Knjiga knjiga1 = null;
 			for (Knjiga k: knjiga) {
-				System.out.println(niz[5]);
-				System.out.println(k.getId());
 				if(k.getId().equals(niz[5])) {
 					knjiga1 = k;
 				}
@@ -477,8 +519,9 @@ public class Biblioteka {
 			writer.newLine();
 // 		}
 		writer.close();
-	
 	}
+	
+	
 	
 }
 

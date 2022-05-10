@@ -61,19 +61,18 @@ public class IzdavanjeKnjige {
 	}
 	@Override
 	public String toString() {
-		return "IzdavanjeKnjige [datumIznajmljivanja=" + datumIznajmljivanja + ", datumVracanja=" + datumVracanja
-				+ ", zaposleni=" + zaposleni + ", clan=" + clan + ", primerak=" + primerak + "]";
+		return datumIznajmljivanja + ";" + datumVracanja+ ";" + zaposleni + ";" + clan + ";" + primerak;
 	}
-	
-	public ArrayList<IzdavanjeKnjige> citajFajl(String imeFajla) throws IOException{
-		ArrayList<IzdavanjeKnjige> izdknjige = new ArrayList<IzdavanjeKnjige>();
-		File fajl = new File(imeFajla);
-		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
-		String line = null;
-		while((line = citaj.readLine())!= null) {
-			String [] niz = line.split(",");
-			LocalDate datumIznajmljivanja = LocalDate.parse(niz[0]);
-			LocalDate datumVracanja = LocalDate.parse(niz[1]);
+//	
+//	public ArrayList<IzdavanjeKnjige> citajFajl(String imeFajla) throws IOException{
+//		ArrayList<IzdavanjeKnjige> izdknjige = new ArrayList<IzdavanjeKnjige>();
+//		File fajl = new File(imeFajla);
+//		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
+//		String line = null;
+//		while((line = citaj.readLine())!= null) {
+//			String [] niz = line.split(",");
+//			LocalDate datumIznajmljivanja = LocalDate.parse(niz[0]);
+//			LocalDate datumVracanja = LocalDate.parse(niz[1]);
 //			String id = niz[0];
 //			String ime = niz[1];
 //			String prezime = niz[2];
@@ -85,12 +84,12 @@ public class IzdavanjeKnjige {
 //					defpol = pol; 
 //				}
 //			Zaposleni zaposleni = new Zaposleni(id,ime,prezime,jMBG,adresa,pol,korisnickaSifra,korisnickoIme);
-			
-		}
-		citaj.close();
-		return izdknjige;
-		
-	}
+//			
+//		}
+//		citaj.close();
+//		return izdknjige;
+//		
+//	}
 	
 	 
 	 
