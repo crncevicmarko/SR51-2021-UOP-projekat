@@ -17,6 +17,7 @@ public class BibliotekaMain {
 		Knjiga knjiga = new Knjiga("1","p","z","n",1,Jezik.ENGLESKI,"m",zanr);
 //		Knjiga knjiga1 = new Knjiga("2","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
 //		Knjiga knjiga2 = new Knjiga("3","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
+//		System.out.println(biblioteka.citajKnjige("src/projekatObjektno/knjige.txt"));
 //		try {
 			biblioteka.upisiFajl(knjiga);
 ////			biblioteka.upisiFajl(knjiga1);
@@ -26,7 +27,7 @@ public class BibliotekaMain {
 //		}
 //		biblioteka.azurirajKnjigu("2");
 //		
-//		Administrator admin = new Administrator("1","Zika","Zikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"ZikaCAr123","ZikaZ");
+//		Administrator admin = new Administrator("1","Zika","Zikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"ZikaCAr123","ZikaZ",1121);
 ////		biblioteka.upisiFajlAdministartor(admin);
 ////		System.out.println(biblioteka.citajFajl("src/projekatObjektno/knjige.txt"));
 //		TipClanarine tip = new TipClanarine("nvjvr","nvjnvje",0);

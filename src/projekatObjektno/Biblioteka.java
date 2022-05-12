@@ -286,7 +286,8 @@ public class Biblioteka {
 			}
 			String korisnickaSifra = niz[6];
 			String korisnickoIme = niz[7];
-			Administrator admin = new Administrator(id,ime,prezime,JMBG,adresa,defpol,korisnickaSifra,korisnickoIme);
+			Double plata = Double.parseDouble(niz[8]);
+			Administrator admin = new Administrator(id,ime,prezime,JMBG,adresa,defpol,korisnickaSifra,korisnickoIme,plata);
 			administartor.add(admin);
 			}
 		citaj.close();
@@ -297,7 +298,7 @@ public class Biblioteka {
 		File file = new File("src/projekatObjektno/administartor.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
 //		for (Knjiga k: knjige) {
-			String sb = a.getId() +";"+ a.getIme() + ";"+a.getPrezime()+ ";"+a.getJMBG() +";"+ a.getAdresa()+ ";" +a.getPol() +";"+a.getKorisnickaSifra()+";"+a.getKorisnickoIme();
+			String sb = a.getId() +";"+ a.getIme() + ";"+a.getPrezime()+ ";"+a.getJMBG() +";"+ a.getAdresa()+ ";" +a.getPol() +";"+a.getKorisnickaSifra()+";"+a.getKorisnickoIme() +";"+a.getPlata();
 			writer.write(sb);
 			writer.newLine();
 //		}
@@ -325,7 +326,8 @@ public class Biblioteka {
 			}
 			String korisnickaSifra = niz[6];
 			String korisnickoIme = niz[7];
-			Bibliotekar bibl = new Bibliotekar(id,ime,prezime,JMBG,adresa,defpol,korisnickaSifra,korisnickoIme);
+			Double plata = Double.parseDouble(niz[8]);
+			Bibliotekar bibl = new Bibliotekar(id,ime,prezime,JMBG,adresa,defpol,korisnickaSifra,korisnickoIme,plata);
 			bibliotekar.add(bibl);
 			}
 		citaj.close();
@@ -336,7 +338,7 @@ public class Biblioteka {
 		File file = new File("src/projekatObjektno/bibliotekar.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
 //		for (Knjiga k: knjige) {
-			String sb = b.getId() +";"+ b.getIme() + ";"+b.getPrezime()+ ";"+b.getJMBG() +";"+ b.getAdresa()+ ";" +b.getPol() +";"+b.getKorisnickaSifra()+";"+b.getKorisnickoIme();
+			String sb = b.getId() +";"+ b.getIme() + ";"+b.getPrezime()+ ";"+b.getJMBG() +";"+ b.getAdresa()+ ";" +b.getPol() +";"+b.getKorisnickaSifra()+";"+b.getKorisnickoIme()+";"+b.getPlata();
 			writer.write(sb);
 			writer.newLine();
 //		}
