@@ -363,7 +363,70 @@ public class Biblioteka {
 
 	/*AdministartorArrayLista----------------------------------------------------------------------------------------------------------------------------*/
 	
-
+	/*CRUD Administator ---------------------------------------------------------------------------------------------------------------------------------*/
+	public void obrisiAdministratora(String id) throws IOException {
+		Administrator administrator = null;
+		for(Administrator a: this.admin) {
+			if(administrator.getId().equals(id)) {
+				administrator = a;
+			}
+		}
+		administrator.setJeObrisan(true);
+	}
+	
+	public void praviAdministatora(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
+			String korisnickaSifra, String korisnickoIme,double plata,boolean jeObrisan) throws IOException {
+		this.citajAdministratora();
+		Administrator administrator = new Administrator(id,ime,prezime,jMBG,adresa, pol,korisnickaSifra,korisnickoIme,plata,jeObrisan);
+		this.admin.add(administrator);
+		this.upisiFajlAdministartor(admin);
+	}
+	
+	public void azurirajAdministratora(String id,HashMap<String,String> parametri) {
+		Administrator admini = null;
+		for(Administrator a:this.admin) {
+			if(a.getId().equals(id)) {
+				admini = a;
+			}
+		}
+		Set<String> kljucevi = parametri.keySet();
+		for(String kljuc:kljucevi) {
+			switch (kljuc) {
+			case "id":
+				admini.setId(parametri.get(kljuc));
+				break;
+			case "ime":
+				admini.setIme(parametri.get(kljuc));
+				break;
+			case "prezime":
+				admini.setPrezime(parametri.get(kljuc));
+				break;
+			case "jMBG":
+				admini.setJMBG(parametri.get(kljuc));
+				break;
+			case "adresa":
+				admini.setAdresa(parametri.get(kljuc));
+				break;
+			case "pol":
+				admini.setPol(EmnumPol.valueOf(parametri.get(kljuc)));
+				break;
+			case "korisnickaSifra":
+				admini.setKorisnickaSifra(parametri.get(kljuc));
+				break;
+			case "korisnickoIme":
+				admini.setKorisnickoIme(parametri.get(kljuc));
+				break;
+			case "plata":
+				admini.setPlata(Double.parseDouble(parametri.get(kljuc)));
+				break;
+			case "jeObrisan":
+				admini.setJeObrisan(Boolean.parseBoolean(parametri.get(kljuc)));
+				break;
+			}
+		}
+	}
+	
+	/*CRUD Administator ---------------------------------------------------------------------------------------------------------------------------------*/
 //	public ArrayList<Administrator> citajAdministratora(String imeFajla) throws IOException{
 	public void citajAdministratora() throws IOException{
 //		ArrayList<Administrator> administartor = new ArrayList<Administrator>()
@@ -407,7 +470,71 @@ public class Biblioteka {
 		writer.close();
 	}
 	/*BibliotekarArrayLista--------------------------------------------------------------------------------------------------------------------------------*/
-
+	
+	/*CRUD Bibliitekar ---------------------------------------------------------------------------------------------------------------------------------*/
+	public void obrisiBibliotekara(String id) throws IOException {
+		Bibliotekar bibliotekar = null;
+		for(Bibliotekar b:this.bibliotekar) {
+			if(b.getId().equals(id)) {
+				bibliotekar = b;
+			}
+		}
+		bibliotekar.setJeObrisan(true);
+	}
+	
+	public void dodajBibliotekara(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
+			String korisnickaSifra, String korisnickoIme,double plata,boolean jeObrisan) throws IOException {
+		this.citajBibliotekara();
+		Bibliotekar biblio = new Bibliotekar(id,ime,prezime,jMBG,adresa,pol,korisnickaSifra,korisnickoIme,plata,jeObrisan);
+		this.bibliotekar.add(biblio);
+		this.upisiFajlBibliotekar(bibliotekar);
+	}
+	
+	public void azurirajBibliotekara(String id,HashMap<String,String> parametri) {
+		Bibliotekar biblio = null;
+		for(Bibliotekar b:this.bibliotekar) {
+			if(b.getId().equals(id)) {
+				biblio = b;
+			}
+		}
+		Set<String> kljucevi = parametri.keySet();
+		for(String kljuc:kljucevi) {
+			switch (kljuc) {
+			case "id":
+				biblio.setId(parametri.get(kljuc));
+				break;
+			case "ime":
+				biblio.setIme(parametri.get(kljuc));
+				break;
+			case "prezime":
+				biblio.setPrezime(parametri.get(kljuc));
+				break;
+			case "jMBG":
+				biblio.setJMBG(parametri.get(kljuc));
+				break;
+			case "adresa":
+				biblio.setAdresa(parametri.get(kljuc));
+				break;
+			case "pol":
+				biblio.setPol(EmnumPol.valueOf(parametri.get(kljuc)));
+				break;
+			case "korisnickaSifra":
+				biblio.setKorisnickaSifra(parametri.get(kljuc));
+				break;
+			case "korisnickoIme":
+				biblio.setKorisnickoIme(parametri.get(kljuc));
+				break;
+			case "plata":
+				biblio.setPlata(Double.parseDouble(parametri.get(kljuc)));
+				break;
+			case "jeObrisan":
+				biblio.setJeObrisan(Boolean.parseBoolean(parametri.get(kljuc)));
+				break;
+			}
+		}
+	}
+	
+	/*CRUD Bibliotekar ---------------------------------------------------------------------------------------------------------------------------------*/
 	
 //	public ArrayList<Bibliotekar> citajBibliotekara(String imeFajla) throws IOException{
 	public void citajBibliotekara() throws IOException{
