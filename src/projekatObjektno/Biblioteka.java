@@ -578,7 +578,85 @@ public class Biblioteka {
 		}
 		writer.close();
 	}
-
+	
+	
+	/*CRUD ClanBiblioteke ---------------------------------------------------------------------------------------------------------------------------------*/
+	public void obrisiClana(String id) {
+		ClanBiblioteke clan = null;
+		for(ClanBiblioteke c : this.clanbiblioteke) {
+			if (c.getId().equals(id)) {
+				clan = c;
+			}
+		}
+		clan.setJeObrisan(true);
+	}
+	public void dodajClana(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
+			String brClankarte, LocalDate datumPoslednjeUplate, int brojMeseciClanarine, boolean aktivan,
+			TipClanarine tipClanarine,boolean jeObrisan) throws IOException {
+		this.citajClanove();
+		ClanBiblioteke clan = new ClanBiblioteke(id,ime,prezime,jMBG,adresa,pol,brClankarte,datumPoslednjeUplate,brojMeseciClanarine,aktivan,tipClanarine,jeObrisan);
+		this.clanbiblioteke.add(clan);
+		this.upisiFajlClanBiblioteke(clanbiblioteke);
+	}
+	
+	public void azurirajClana(String id,HashMap<String,String> parametri) {
+		ClanBiblioteke clan = null;
+		for(ClanBiblioteke c : this.clanbiblioteke) {
+			if (c.getId().equals(id)) {
+				clan = c;
+			}
+		}
+		Set<String> kljucevi = parametri.keySet();
+		for(String kljuc:kljucevi) {
+			switch (kljuc){
+			case "id":
+				clan.setId(parametri.get(kljuc));
+				break;
+			case "ime":
+				clan.setIme(parametri.get(kljuc));
+				break;
+			case "prezime":
+				clan.setPrezime(parametri.get(kljuc));
+				break;
+			case "jMBG":
+				clan.setJMBG(parametri.get(kljuc));
+				break;
+			case "adresa":
+				clan.setAdresa(parametri.get(kljuc));
+				break;
+			case "pol":
+				clan.setPol(EmnumPol.valueOf(parametri.get(kljuc)));
+				break;
+			case "brClankarte":
+				clan.setBrClankarte(parametri.get(kljuc));
+				break;
+			case "datumPoslednjeUplate":
+				clan.setDatumPoslednjeUplate(LocalDate.parse(parametri.get(kljuc)));
+				break;
+			case "brojMeseciClanarine":
+				clan.setBrojMeseciClanarine(Integer.parseInt(parametri.get(kljuc)));
+				break;
+			case "aktivan":
+				clan.setAktivan(Boolean.parseBoolean(parametri.get(kljuc)));
+				break;
+			case "tipClanarine":
+				TipClanarine tip = null;
+				for (TipClanarine t : this.tipClanarine) {
+					if(t.getId().equals(parametri.get(kljuc))) {
+						tip = t;
+					}
+				}
+				clan.setTipClanarine(tip);
+				break;
+			case "jeObrisan":
+				clan.setJeObrisan(Boolean.parseBoolean(parametri.get(kljuc)));
+				break;
+			}
+		}
+	}
+	/*CRUD ClanBiblioteke -----------------------------------------------------------------------------------------------------------------------------------*/
+	
+	
 	/*ClanBibliotekeArrayLista-------------------------------------------------------------------------------------------------------------------------------*/
 //	public static ArrayList<ClanBiblioteke> citajClanove(String fajlClanovi)throws IOException{
 		public void citajClanove()throws IOException{
@@ -778,7 +856,65 @@ public class Biblioteka {
 	
 	
 	/*CRUD PrimerakKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
+	public void brisanjePrimerka(String id) {
+		PrimerakKnjige primerak = null;
+		for(PrimerakKnjige p : this.primerak) {
+			if(p.getId().equals(id)) {
+				primerak = p;
+			}
+		}
+		primerak.setJeObrisan(true);
+	}
 	
+	public void dodavanjePrimerka(String id, int brStrana, boolean tipPoveza, int godinaStampanja, boolean jeliIznajmljena,
+			Knjiga knjiga,boolean jeObrisan) throws IOException {
+		this.citajPrimerke();
+		PrimerakKnjige primerak1 = new PrimerakKnjige(id,brStrana,tipPoveza,godinaStampanja,jeliIznajmljena,knjiga,jeObrisan);
+		this.primerak.add(primerak1);
+		this.upisiPrimerakKnjige(primerak);
+	}
+	
+	public void azurirajPrimerak(String id, HashMap<String,String> parametri) {
+		PrimerakKnjige primerak = null;
+		for(PrimerakKnjige p : this.primerak) {
+			if(p.getId().equals(id)) {
+				primerak = p;
+			}
+		}
+		Set<String> kljucevi = parametri.keySet();
+		for(String kljuc: kljucevi) {
+			switch (kljuc) {
+			case "id":
+				primerak.setId(parametri.get(kljuc));
+				break;
+			case "brStrana":
+				primerak.setBrStrana(Integer.parseInt(parametri.get(kljuc)));;
+				break;
+			case "tipPoveza":
+				primerak.setTipPoveza(Boolean.parseBoolean(parametri.get(kljuc)));
+				break;
+			case "godinaStampanja":
+				primerak.setGodinaStampanja(Integer.parseInt(parametri.get(kljuc)));
+				break;
+			case "jeliIznajmljena":
+				primerak.setJeliIznajmljena(Boolean.parseBoolean(parametri.get(kljuc)));
+				break;
+			case "knjiga":
+				Knjiga knjiga = null;
+				for (Knjiga k :this.knjige) {
+					if(k.getId().equals(parametri.get(kljuc))) {
+						knjiga = k;
+					}
+				}
+				primerak.setKnjiga(knjiga);
+				break;
+			case "jeObrisan":
+				primerak.setJeObrisan(Boolean.parseBoolean(parametri.get(kljuc)));
+				break;
+			}
+		}
+		
+	}
 	/*CRUD PrimerskKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
 	
 	
