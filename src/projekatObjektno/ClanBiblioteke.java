@@ -14,17 +14,18 @@ public class ClanBiblioteke extends Osoba{
     protected int brojMeseciClanarine;
     protected boolean aktivan;
     protected TipClanarine tipClanarine;
-    
+    protected boolean jeObrisan;
    
 	public ClanBiblioteke(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
 			String brClankarte, LocalDate datumPoslednjeUplate, int brojMeseciClanarine, boolean aktivan,
-			TipClanarine tipClanarine) {
+			TipClanarine tipClanarine,boolean jeObrisan) {
 		super(id, ime, prezime, jMBG, adresa, pol);
 		this.brClankarte = brClankarte;
 		this.datumPoslednjeUplate = datumPoslednjeUplate;
 		this.brojMeseciClanarine = brojMeseciClanarine;
 		this.aktivan = aktivan;
 		this.tipClanarine = tipClanarine;
+		this.jeObrisan = jeObrisan;
 	}
 	
 	public ClanBiblioteke() {
@@ -34,7 +35,7 @@ public class ClanBiblioteke extends Osoba{
 		this.brojMeseciClanarine = 0;
 		this.aktivan = false;
 		this.tipClanarine = null;
-		
+		this.jeObrisan = false;
 	}
 //	public ClanBiblioteke(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol defpol,
 //			int brClankarte2, LocalDate datumPoslednjeUplate2, int brojMeseciClanarine2, boolean aktivan2,
@@ -70,6 +71,12 @@ public class ClanBiblioteke extends Osoba{
 	}
 	public void setTipClanarine(TipClanarine tipClanarine) {
 		this.tipClanarine = tipClanarine;
+	}
+	public boolean isJeObrisan() {
+		return jeObrisan;
+	}
+	public void setJeObrisan(boolean jeObrisan) {
+		this.jeObrisan = jeObrisan;
 	}
 	
 //	public ArrayList<ClanBiblioteke> citajclanove(String fajlClanovi)throws IOException{
@@ -118,7 +125,7 @@ public class ClanBiblioteke extends Osoba{
 
 	@Override
 	public String toString() {
-		return id+";"+ime+";"+prezime+";"+JMBG+";"+adresa+";"+pol+";"+brClankarte+";"+datumPoslednjeUplate+";"+ brojMeseciClanarine+";"+aktivan+";"+tipClanarine;
+		return id+";"+ime+";"+prezime+";"+JMBG+";"+adresa+";"+pol+";"+brClankarte+";"+datumPoslednjeUplate+";"+ brojMeseciClanarine+";"+aktivan+";"+tipClanarine+";"+jeObrisan;
 	}
 	
 

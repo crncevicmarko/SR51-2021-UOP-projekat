@@ -143,7 +143,6 @@ public class Biblioteka {
 	public void setZaoposleni(ArrayList<Zaposleni> zaoposleni) {
 		this.zaoposleni = zaoposleni;
 	}
-	
 	public ArrayList<IzdavanjeKnjige> getIzdavanjeKnjige() {
 		return izdavanjeKnjige;
 	}
@@ -168,7 +167,6 @@ public class Biblioteka {
 		}
 		knjiga.setJeObrisana(true);
 	}
-	
 	
 	public void azurirajKnjigu(String id,HashMap<String,String> parametri) throws IOException {
 		Knjiga knjiga = null;
@@ -271,6 +269,53 @@ public class Biblioteka {
 		writer.close();
 		
 	}
+	
+/*CRUD ZanrKnjige------------------------------------------------------------------------------------------------------------------------------------*/
+	
+	public void obrisiZanr(String id) throws IOException {
+		ZanrKnjige zanr = null;
+		for (ZanrKnjige z : this.zanrovi) {
+			if(z.getId().equals(id)) {
+				zanr = z;
+			}
+		}
+		zanr.setJeObrisan(true);
+	}
+	
+	public void praviZanrKnjige(String id,String oznaka, String opis,boolean jeObrisan) throws IOException {
+		this.citajZanroveIzFajla();
+		ZanrKnjige zanr = new ZanrKnjige(id,oznaka,opis,false);
+		this.zanrovi.add(zanr);
+		this.upisiZanrKnjig(zanrovi);		
+	}
+	
+	public void azurirajZanrKnjige(String id,HashMap<String,String> parametri) throws IOException {
+		ZanrKnjige zanr = null;
+		for (ZanrKnjige z : this.zanrovi) {
+			if(z.getId().equals(id)) {
+				zanr = z;
+			}
+		}
+		Set<String> kljucevi = parametri.keySet();
+		for (String kljuc:kljucevi) {
+			switch (kljuc) {
+			case "id": 
+				zanr.setId(parametri.get(kljuc));
+				break;
+			case "oznaka":
+				zanr.setOznaka(parametri.get(kljuc));
+				break;
+			case "opis":
+				zanr.setOpis(parametri.get(kljuc));
+				break;
+			case "jeObrisan":
+				zanr.setJeObrisan(Boolean.parseBoolean(parametri.get(kljuc)));
+				break;
+		}
+	}
+	}
+/*CRUD ZanrKnjige ---------------------------------------------------------------------------------------------------------------------------------------*/
+	
 	/*ZanrKnjigeArrayLista-------------------------------------------------------------------------------------------------------------------------------*/
 	public void  citajZanroveIzFajla() throws IOException{
 //	public ArrayList<ZanrKnjige> citajZanroveIzFajla(String imeFajla) throws IOException{
@@ -284,18 +329,19 @@ public class Biblioteka {
 			String id = niz[0];
 			String oznaka = niz[1];
 			String opis = niz[2];
-			ZanrKnjige zanr = new ZanrKnjige(id,oznaka,opis);
+			Boolean jeObrisan = Boolean.parseBoolean(niz[3]);
+			ZanrKnjige zanr = new ZanrKnjige(id,oznaka,opis,jeObrisan);
 			this.zanrovi.add(zanr);
 		}
 		citaj.close();
 		
 //		return zanrknjige;	
 	}
-	public void upisiZanrKnjig (ArrayList<ZanrKnjige>zanrovi) throws IOException{ /*jeObrisan fali*/
+	public void upisiZanrKnjig (ArrayList<ZanrKnjige>zanrovi) throws IOException{ /*jeObrisan ne fali*/
 		File file = new File("src/projekatObjektno/zanrovi.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for (ZanrKnjige z: zanrovi) {
-			String sb = z.getId() + ";"+ z.getOznaka() + ";"+ z.getOpis();
+			String sb = z.getId() + ";"+ z.getOznaka() + ";"+ z.getOpis() + ";" + z.isJeObrisan();
 			writer.write(sb);
 			writer.newLine();
 		}
@@ -316,6 +362,8 @@ public class Biblioteka {
 	}
 
 	/*AdministartorArrayLista----------------------------------------------------------------------------------------------------------------------------*/
+	
+
 //	public ArrayList<Administrator> citajAdministratora(String imeFajla) throws IOException{
 	public void citajAdministratora() throws IOException{
 //		ArrayList<Administrator> administartor = new ArrayList<Administrator>()
@@ -340,24 +388,27 @@ public class Biblioteka {
 			String korisnickaSifra = niz[6];
 			String korisnickoIme = niz[7];
 			Double plata = Double.parseDouble(niz[8]);
-			Administrator admin = new Administrator(id,ime,prezime,JMBG,adresa,defpol,korisnickaSifra,korisnickoIme,plata);
+			Boolean jeObrisan = Boolean.parseBoolean(niz[9]);
+			Administrator admin = new Administrator(id,ime,prezime,JMBG,adresa,defpol,korisnickaSifra,korisnickoIme,plata,jeObrisan);
 			this.admin.add(admin);
 			}
 		citaj.close();
 //		return administartor;	
 	}
-	public void upisiFajlAdministartor(ArrayList<Administrator>administartori) throws IOException{ /*jeObrisan fali*/
+	public void upisiFajlAdministartor(ArrayList<Administrator>administartori) throws IOException{ /*jeObrisan ne fali */
 //		ArrayList<Knjiga> knjige = kjnigeUpis;
 		File file = new File("src/projekatObjektno/administartor.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for (Administrator a: administartori) {
-			String sb = a.getId() +";"+ a.getIme() + ";"+a.getPrezime()+ ";"+a.getJMBG() +";"+ a.getAdresa()+ ";" +a.getPol() +";"+a.getKorisnickaSifra()+";"+a.getKorisnickoIme() +";"+a.getPlata();
+			String sb = a.getId() +";"+ a.getIme() + ";"+a.getPrezime()+ ";"+a.getJMBG() +";"+ a.getAdresa()+ ";" +a.getPol() +";"+a.getKorisnickaSifra()+";"+a.getKorisnickoIme() +";"+a.getPlata()+";"+a.isJeObrisan();
 			writer.write(sb);
 			writer.newLine();
 		}
 		writer.close();
 	}
 	/*BibliotekarArrayLista--------------------------------------------------------------------------------------------------------------------------------*/
+
+	
 //	public ArrayList<Bibliotekar> citajBibliotekara(String imeFajla) throws IOException{
 	public void citajBibliotekara() throws IOException{
 //		ArrayList<Bibliotekar> bibliotekar = new ArrayList<Bibliotekar>();
@@ -382,23 +433,34 @@ public class Biblioteka {
 			String korisnickaSifra = niz[6];
 			String korisnickoIme = niz[7];
 			Double plata = Double.parseDouble(niz[8]);
-			Bibliotekar bibl = new Bibliotekar(id,ime,prezime,JMBG,adresa,defpol,korisnickaSifra,korisnickoIme,plata);
+			Boolean jeObrisan = Boolean.parseBoolean(niz[9]);
+			Bibliotekar bibl = new Bibliotekar(id,ime,prezime,JMBG,adresa,defpol,korisnickaSifra,korisnickoIme,plata,jeObrisan);
 			this.bibliotekar.add(bibl);
 			}
 		citaj.close();
 //		return bibliotekar;	
 	}
-	public void upisiFajlBibliotekar(ArrayList<Bibliotekar>bibliotekari) throws IOException{ /*jeObrisan fali*/
+	public void upisiFajlBibliotekar(ArrayList<Bibliotekar>bibliotekari) throws IOException{ /*jeObrisan ne fali*/
 //		ArrayList<Knjiga> knjige = kjnigeUpis;
 		File file = new File("src/projekatObjektno/bibliotekar.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for (Bibliotekar b: bibliotekari) {
-			String sb = b.getId() +";"+ b.getIme() + ";"+b.getPrezime()+ ";"+b.getJMBG() +";"+ b.getAdresa()+ ";" +b.getPol() +";"+b.getKorisnickaSifra()+";"+b.getKorisnickoIme()+";"+b.getPlata();
+			String sb = b.getId() +";"+ b.getIme() + ";"+b.getPrezime()+ ";"+b.getJMBG() +";"+ b.getAdresa()+ ";" +b.getPol() +";"+b.getKorisnickaSifra()+";"+b.getKorisnickoIme()+";"+b.getPlata()+";"+b.isJeObrisan();
 			writer.write(sb);
 			writer.newLine();
 		}
 		writer.close();
 	}
+	
+	
+	/*CRUD ClanBiblioteke ---------------------------------------------------------------------------------------------------------------------------------*/
+	
+	
+	
+	
+	
+	/*CRUD ClanBiblioteke ---------------------------------------------------------------------------------------------------------------------------------*/
+	
 	
 	/*ClanBibliotekeArrayLista-------------------------------------------------------------------------------------------------------------------------------*/
 //	public static ArrayList<ClanBiblioteke> citajClanove(String fajlClanovi)throws IOException{
@@ -433,23 +495,33 @@ public class Biblioteka {
 					tip1 = t;
 				}
 			}
-			ClanBiblioteke clan = new ClanBiblioteke(id,ime,prezime,JMBG,adresa,defpol,brClankarte,datumPoslednjeUplate,brojMeseciClanarine,aktivan,tip1);
+			Boolean jeObrisan = Boolean.parseBoolean(nizClanova[11]);
+			ClanBiblioteke clan = new ClanBiblioteke(id,ime,prezime,JMBG,adresa,defpol,brClankarte,datumPoslednjeUplate,brojMeseciClanarine,aktivan,tip1,jeObrisan);
 			this.clanbiblioteke.add(clan);
 		}
 		citanje.close();
 //		return clanovi;
 	}
-	public void upisiFajlClanBiblioteke(ArrayList<ClanBiblioteke>clanovi) throws IOException{ /*jeObrisan fali*/
+	public void upisiFajlClanBiblioteke(ArrayList<ClanBiblioteke>clanovi) throws IOException{ /*jeObrisan ne fali*/
 //	ArrayList<Knjiga> knjige = kjnigeUpis;
 	File file = new File("src/projekatObjektno/clanbiblioteke.txt");
 	BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 	for (ClanBiblioteke c: clanovi) {
-		String sb = c.getId() +";"+ c.getIme() + ";"+c.getPrezime()+ ";"+c.getJMBG() +";"+ c.getAdresa()+ ";" +c.getPol() +";"+c.getBrClankarte()+";"+c.getDatumPoslednjeUplate()+";"+c.getBrojMeseciClanarine()+ ";"+c.getAktivan()+";"+c.getTipClanarine();
+		String sb = c.getId() +";"+ c.getIme() + ";"+c.getPrezime()+ ";"+c.getJMBG() +";"+ c.getAdresa()+ ";" +c.getPol() +";"+c.getBrClankarte()+";"+c.getDatumPoslednjeUplate()+";"+c.getBrojMeseciClanarine()+ ";"+c.getAktivan()+";"+c.getTipClanarine()+";"+c.isJeObrisan();
 		writer.write(sb);
 		writer.newLine();
 	}
 	writer.close();
 }
+	
+	/*CRUD TipClanarine ---------------------------------------------------------------------------------------------------------------------------------*/
+	
+	
+	
+	
+	
+	/*CRUD TipClanarine ---------------------------------------------------------------------------------------------------------------------------------*/
+	
 	/*TipClanarineArrayLista-----------------------------------------------------------------------------------------------------------------------------*/
 //	public static ArrayList<TipClanarine> citajClanarine(String fajlClanovi) throws IOException{
 	public void  citajClanarine() throws IOException{
@@ -463,25 +535,30 @@ public class Biblioteka {
 			String id = nizClanova[0];
 			String naziv = nizClanova[1];
 			double cena = Double.parseDouble(nizClanova[2]);
-			TipClanarine tip = new TipClanarine(id,naziv,cena);
+			Boolean jeObrisan = Boolean.parseBoolean(nizClanova[3]);
+			TipClanarine tip = new TipClanarine(id,naziv,cena,jeObrisan);
 			this.tipClanarine.add(tip);
 		}
 		citanje.close();
 //		return tipClanarine;
 		
 	}
-	public void upisiTipClanarine(ArrayList<TipClanarine>tipoviclanarine) throws IOException{ /*jeObrisan fali*/
+	public void upisiTipClanarine(ArrayList<TipClanarine>tipoviclanarine) throws IOException{ /*jeObrisan ne fali*/
 //		ArrayList<TipClanarine> tip = tipUpis;
 		File file = new File("src/projekatObjektno/tipclanarine.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(TipClanarine t:tipoviclanarine) {
-			String sb = t.getNaziv()+ ";"+ t.getId()+ ";"+t.getCena();
+			String sb = t.getNaziv()+ ";"+ t.getId()+ ";"+t.getCena()+";"+t.isJeObrisan();
 			writer.write(sb);
 			writer.newLine();;
  		}
 		writer.close();
 	}
 	
+	
+	/*CRUD IzdavanjeKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
+	
+	/*CRUD IzdavanjeKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*IzdavanjeKnjigeArrayLista------------------------------------------------------------------------------------------------------------------------------*/
 //	public ArrayList<IzdavanjeKnjige> citajIzdavanjeKnjige(String imeFajla) throws IOException{
@@ -524,7 +601,8 @@ public class Biblioteka {
 					primerKnjige = t;
 				}
 			}
-			IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIznajmljivanja,datumVracanja,zaposleni,clan1,primerKnjige);
+			Boolean jeObrisan = Boolean.parseBoolean(niz[5]);
+			IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIznajmljivanja,datumVracanja,zaposleni,clan1,primerKnjige,jeObrisan);
 			this.izdavanjeKnjige.add(izdavanje);
 		}
 		citaj.close();
@@ -532,18 +610,22 @@ public class Biblioteka {
 		
 	}
 	
-	public void upisiIzdavanjeKnjige(ArrayList<IzdavanjeKnjige>izdavanjaKnjige) throws IOException{ /*jeObrisan fali*/
+	public void upisiIzdavanjeKnjige(ArrayList<IzdavanjeKnjige>izdavanjaKnjige) throws IOException{ /*jeObrisan ne fali*/
 //		ArrayList<TipClanarine> tip = tipUpis;
 		File file = new File("src/projekatObjektno/izdavanjeKnjige.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(IzdavanjeKnjige t:izdavanjaKnjige) {
-			String sb = t.getDatumIznajmljivanja()+ ";"+ t.getDatumVracanja()+ ";"+t.getZaposleni().getId()+ ";"+ t.getClan().getId()+ ";"+ t.getPrimerak().getId();
+			String sb = t.getDatumIznajmljivanja()+ ";"+ t.getDatumVracanja()+ ";"+t.getZaposleni().getId()+ ";"+ t.getClan().getId()+ ";"+ t.getPrimerak().getId() + ";" + t.isJeObrisan();
 			writer.write(sb);
 			writer.newLine();;
  		}
 		writer.close();
 	}
 	
+	
+	/*CRUD PrimerakKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
+	
+	/*CRUD PrimerskKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
 	
 	
 	/*PrimerakKnjigeArrayLista---------------------------------------------------------------------------------------------------------------------------------*/
@@ -568,26 +650,24 @@ public class Biblioteka {
 					knjiga1 = k;
 				}
 			}
-			PrimerakKnjige primerak = new PrimerakKnjige(id,brStrana,tipPoveza,godinaStampanja,jeliIznajmljena,knjiga1);
+			Boolean jeObrisan = Boolean.parseBoolean(niz[6]);
+			PrimerakKnjige primerak = new PrimerakKnjige(id,brStrana,tipPoveza,godinaStampanja,jeliIznajmljena,knjiga1,jeObrisan);
 			this.primerak.add(primerak);	
 		}
 		citaj.close();
 //		return primerakKnjige;
 	}
-	public void upisiPrimerakKnjige(ArrayList<PrimerakKnjige>primerciKnjige) throws IOException{ /*jeObrisan fali*/
+	public void upisiPrimerakKnjige(ArrayList<PrimerakKnjige>primerciKnjige) throws IOException{ /*jeObrisan ne fali*/
 //		ArrayList<PrimerakKnjige> primerak = tipUpis;
 		File file = new File("src/projekatObjektno/primerakKnjige.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(PrimerakKnjige p: primerciKnjige) {
-			String pr = p.getId()+ ";"+ p.getBrStrana()+";"+p.isTipPoveza()+";"+p.getGodinaStampanja()+";"+p.isJeliIznajmljena()+";"+p.getKnjiga().getId();
+			String pr = p.getId()+ ";"+ p.getBrStrana()+";"+p.isTipPoveza()+";"+p.getGodinaStampanja()+";"+p.isJeliIznajmljena()+";"+p.getKnjiga().getId()+";"+p.isJeObrisan();
 			writer.write(pr);
 			writer.newLine();
  		}
 		writer.close();
 	}
-	
-	
-	
 }
 
 

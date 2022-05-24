@@ -15,9 +15,9 @@ public class BibliotekaMain {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-		ZanrKnjige zanr = new ZanrKnjige("novi id","hthtrh","rghtrhb");
+		ZanrKnjige zanr = new ZanrKnjige("novi id","hthtrh","rghtrhb",false);
 //		System.out.println(biblioteka.zanrovi);
-//		Knjiga knjiga = new Knjiga("1","p","z","n",1,Jezik.ENGLESKI,"m",zanr,false);
+		Knjiga knjiga = new Knjiga("1","p","z","n",1,Jezik.ENGLESKI,"m",zanr,false);
 //		Knjiga knjiga1 = new Knjiga("2","g","jg","n",1,Jezik.ENGLESKI,"m",zanr,false);
 //		Knjiga knjiga1 = new Knjiga("2","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
 //		Knjiga knjiga2 = new Knjiga("3","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
@@ -53,19 +53,17 @@ public class BibliotekaMain {
 		biblioteka.upisiFajl(biblioteka.getKnjige());
 		biblioteka.praviKnjigu("idNova", "NaslovNova", "OGnaslovKnjige", "Aristotel", 1980, Jezik.ENGLESKI, "OpisKnjige", zanr, false);
 		
-//		String id, String naslovKnjige, String originalsniNaslovKnjige, String pisac,
-//		int godinaObjavljanjaKnjige, Jezik jezikOriginala, String opisKnjige, ZanrKnjige zanr, boolean jeObrisana
-//		
-		Administrator admin = new Administrator("1","Zika","Zikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"ZikaCAr123","ZikaZ",1121);
+
+		Administrator admin = new Administrator("1","Zika","Zikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"ZikaCAr123","ZikaZ",1121,false);
 ////		biblioteka.upisiFajlAdministartor(admin);
 ////		System.out.println(biblioteka.citajFajl("src/projekatObjektno/knjige.txt"));
-		TipClanarine tip = new TipClanarine("nvjvr","nvjnvje",0);
+		TipClanarine tip = new TipClanarine("nvjvr","nvjnvje",0,false);
 ////		biblioteka.upisiTipClanarine(tip);
-		ClanBiblioteke clan = new ClanBiblioteke("1","Mika","Mikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"vyvbi",LocalDate.parse("2009-02-03"),6,true,tip);
+		ClanBiblioteke clan = new ClanBiblioteke("1","Mika","Mikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"vyvbi",LocalDate.parse("2009-02-03"),6,true,tip,false);
 ////		biblioteka.upisiFajlClanBiblioteke(clan);
-//		PrimerakKnjige primerak = new PrimerakKnjige("1", 2, true, 1990, false,knjiga);
+		PrimerakKnjige primerak = new PrimerakKnjige("1", 2, true, 1990, false,knjiga,false);
 ////		biblioteka.upisiPrimerakKnjige(primerak);
-//		IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(LocalDate.parse("2007-02-03"),LocalDate.parse("2007-02-03"),admin,clan,primerak);
+		IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(LocalDate.parse("2007-02-03"),LocalDate.parse("2007-02-03"),admin,clan,primerak,false);
 //		biblioteka.upisiIzdavanjeKnjige(izdavanje);
 //		biblioteka.citajAdministratora("src/projekatObjektno/administartor.txt");
 //		System.out.println(biblioteka.getAdmin().get(0));

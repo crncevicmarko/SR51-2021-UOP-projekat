@@ -15,16 +15,17 @@ public class PrimerakKnjige {
     protected int godinaStampanja;
     protected boolean jeliIznajmljena;
     protected Knjiga knjiga;
-    
+    protected boolean jeObrisan;
     
 	public PrimerakKnjige(String id, int brStrana, boolean tipPoveza, int godinaStampanja, boolean jeliIznajmljena,
-			Knjiga knjiga) {
+			Knjiga knjiga,boolean jeObrisan) {
 		this.id = id;
 		this.brStrana = brStrana;
 		this.tipPoveza = tipPoveza;
 		this.godinaStampanja = godinaStampanja;
 		this.jeliIznajmljena = jeliIznajmljena;
 		this.knjiga = knjiga;
+		this.jeObrisan = jeObrisan;
 	}
 	
 	public PrimerakKnjige() {
@@ -34,6 +35,7 @@ public class PrimerakKnjige {
 		this.godinaStampanja = 0;
 		this.jeliIznajmljena = false;
 		this.knjiga = new Knjiga();
+		this.jeObrisan = false;
 	}
 	public String getId() {
 		return id;
@@ -71,10 +73,17 @@ public class PrimerakKnjige {
 	public void setKnjiga(Knjiga knjiga) {
 		this.knjiga = knjiga;
 	}
+	public boolean isJeObrisan() {
+		return jeObrisan;
+	}
+	public void setJeObrisan(boolean jeObrisan) {
+		this.jeObrisan = jeObrisan;
+	}
 
 	@Override
 	public String toString() {
-		return id + ";" + brStrana + ";" + tipPoveza + ";"+ godinaStampanja + ";" + jeliIznajmljena+";"+knjiga;
+		return id + ";" + brStrana + ";" + tipPoveza + ";"+ godinaStampanja + ";" + jeliIznajmljena+";"+knjiga+";"+ jeObrisan;
+		
 	}
 	
 //	public ArrayList<PrimerakKnjige> citajFajl(String imeFajla) throws IOException{

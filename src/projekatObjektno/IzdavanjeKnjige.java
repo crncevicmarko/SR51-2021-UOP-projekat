@@ -12,15 +12,17 @@ public class IzdavanjeKnjige {
 	 protected Zaposleni zaposleni;
 	 protected ClanBiblioteke clan;
 	 protected PrimerakKnjige primerak;
+	 protected boolean jeObrisan;
 	 
 	 
 	public IzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
-			ClanBiblioteke clan, PrimerakKnjige primerak) {
+			ClanBiblioteke clan, PrimerakKnjige primerak,boolean jeObrisan) {
 		this.datumIznajmljivanja = datumIznajmljivanja;
 		this.datumVracanja = datumVracanja;
 		this.zaposleni = zaposleni;
 		this.clan = clan;
 		this.primerak = primerak;
+		this.jeObrisan = jeObrisan;
 	}
 	public IzdavanjeKnjige() {
 		this.datumIznajmljivanja = null;
@@ -28,6 +30,7 @@ public class IzdavanjeKnjige {
 		this.zaposleni = null; 
 		this.clan = null;
 		this.primerak = null;
+		this.jeObrisan = false;
 	}
 	public LocalDate getDatumIznajmljivanja() {
 		return datumIznajmljivanja;
@@ -59,9 +62,16 @@ public class IzdavanjeKnjige {
 	public void setPrimerak(PrimerakKnjige primerak) {
 		this.primerak = primerak;
 	}
+	public boolean isJeObrisan() {
+		return jeObrisan;
+	}
+	public void setJeObrisan(boolean jeObrisan) {
+		this.jeObrisan = jeObrisan;
+	}
+	
 	@Override
 	public String toString() {
-		return datumIznajmljivanja + ";" + datumVracanja+ ";" + zaposleni + ";" + clan + ";" + primerak;
+		return datumIznajmljivanja + ";" + datumVracanja+ ";" + zaposleni + ";" + clan + ";" + primerak + ";" + jeObrisan;
 	}
 //	
 //	public ArrayList<IzdavanjeKnjige> citajFajl(String imeFajla) throws IOException{

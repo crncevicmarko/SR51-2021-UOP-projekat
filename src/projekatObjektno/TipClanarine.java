@@ -12,18 +12,21 @@ public class TipClanarine {
 	protected String id;
     protected String naziv;
     protected double cena;
+    protected boolean jeObrisan;
     
     
-	public TipClanarine(String id, String naziv, double cena) {
+	public TipClanarine(String id, String naziv, double cena,boolean jeObrisan) {
 		this.id = id;
 		this.naziv = naziv;
 		this.cena = cena;
+		this.jeObrisan = jeObrisan;
 	}
 	
 	public TipClanarine() {
 		this.id = "";
 		this.naziv = "";
 		this.cena = 0;
+		this.jeObrisan = false;
 	}
 	
 	public String getId() {
@@ -44,10 +47,18 @@ public class TipClanarine {
 	public void setCena(double cena) {
 		this.cena = cena;
 	}
+	public boolean isJeObrisan() {
+		return jeObrisan;
+	}
+	public void setJeObrisan(boolean jeObrisan) {
+		this.jeObrisan = jeObrisan;
+	}
+
 	@Override
 	public String toString() {
-		return id + ";" + naziv + ";" + cena;
+		return id + ";" + naziv + ";" + cena+";"+jeObrisan;
 	}
+	
 	
 //	public static ArrayList<TipClanarine>  citajClanarine(String fajlClanovi) throws IOException{
 //		ArrayList<TipClanarine> tipClanarine = new ArrayList<TipClanarine>();

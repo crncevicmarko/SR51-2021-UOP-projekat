@@ -12,16 +12,20 @@ public class ZanrKnjige {
 	protected String id;
 	protected String oznaka;
 	protected String opis;
+	protected boolean jeObrisan;
 
-	public ZanrKnjige(String id,String oznaka, String opis) {
+	public ZanrKnjige(String id,String oznaka, String opis,boolean jeObrisan) {
 		this.id = id;
 		this.oznaka = oznaka;
 		this.opis = opis;
+		this.jeObrisan = jeObrisan;
 	}
 	
 	public ZanrKnjige() {
+		this.id = "";
 		this.oznaka = "";
 		this.opis = "";
+		this.jeObrisan = false;
 	}
 	
 	public String getId() {
@@ -42,10 +46,16 @@ public class ZanrKnjige {
 	public void setOpis(String opis) {
 		this.opis = opis;
 	}
+	public boolean isJeObrisan() {
+		return jeObrisan;
+	}
+	public void setJeObrisan(boolean jeObrisan) {
+		this.jeObrisan = jeObrisan;
+	}
 
 	@Override
 	public String toString() {
-		return id + ";"+oznaka + ";" + opis;
+		return id + ";"+oznaka + ";" + opis + ";" + jeObrisan;
 	}
 
 	

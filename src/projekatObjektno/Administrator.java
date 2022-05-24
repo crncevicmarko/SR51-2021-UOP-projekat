@@ -15,13 +15,13 @@ public class Administrator extends Zaposleni {
 	}
 
 	public Administrator(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
-			String korisnickaSifra, String korisnickoIme,double plata) {
-		super(id, ime, prezime, jMBG, adresa, pol, korisnickaSifra, korisnickoIme,plata);
+			String korisnickaSifra, String korisnickoIme,double plata,boolean jeObrisan) {
+		super(id, ime, prezime, jMBG, adresa, pol, korisnickaSifra, korisnickoIme,plata,jeObrisan);
 	}
 
 	@Override
 	public String toString() {
-		return  id+ ";" + ime + ";" + prezime + ";" + JMBG + ";" + adresa + ";" + pol+ ";" + korisnickaSifra + ";" + korisnickoIme + ";"+ plata;
+		return  id+ ";" + ime + ";" + prezime + ";" + JMBG + ";" + adresa + ";" + pol+ ";" + korisnickaSifra + ";" + korisnickoIme + ";"+ plata+";"+jeObrisan;
 	}
 	
 	public void DodatiNoveZaposlene() {
