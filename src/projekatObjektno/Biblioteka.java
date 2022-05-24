@@ -578,17 +578,7 @@ public class Biblioteka {
 		}
 		writer.close();
 	}
-	
-	
-	/*CRUD ClanBiblioteke ---------------------------------------------------------------------------------------------------------------------------------*/
-	
-	
-	
-	
-	
-	/*CRUD ClanBiblioteke ---------------------------------------------------------------------------------------------------------------------------------*/
-	
-	
+
 	/*ClanBibliotekeArrayLista-------------------------------------------------------------------------------------------------------------------------------*/
 //	public static ArrayList<ClanBiblioteke> citajClanove(String fajlClanovi)throws IOException{
 		public void citajClanove()throws IOException{
@@ -642,11 +632,48 @@ public class Biblioteka {
 }
 	
 	/*CRUD TipClanarine ---------------------------------------------------------------------------------------------------------------------------------*/
+	public void obrisiTipClanarine(String id) {
+		TipClanarine tip = null;
+		for(TipClanarine t: this.tipClanarine) {
+			if(t.getId().equals(id)){
+				tip = t;
+			}
+		}
+		tip.setJeObrisan(true);
+	}
 	
+	public void dodajTipClanarine(String id, String naziv, double cena,boolean jeObrisan) throws IOException {
+		this.citajClanarine();
+		TipClanarine tip = new TipClanarine(id,naziv,cena,jeObrisan);
+		this.tipClanarine.add(tip);
+		this.upisiTipClanarine(tipClanarine);
+	}
 	
-	
-	
-	
+	public void azurirajTipClanarine(String id,HashMap<String,String> parametri) {
+		TipClanarine tip = null;
+		for(TipClanarine t: this.tipClanarine) {
+			if(t.getId().equals(id)){
+				tip = t;
+			}
+		}
+		Set<String> kljucevi = parametri.keySet();
+		for(String kljuc:kljucevi) {
+			switch (kljuc) {
+			case "id":
+				tip.setId(parametri.get(kljuc));
+				break;
+			case "naziv":
+				tip.setNaziv(parametri.get(kljuc));
+				break;
+			case "cena":
+				tip.setCena(Double.parseDouble(parametri.get(kljuc)));
+				break;
+			case "jeObrisan":
+				tip.setJeObrisan(Boolean.parseBoolean(parametri.get(kljuc)));
+				break;
+			}
+		}
+	}	
 	/*CRUD TipClanarine ---------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*TipClanarineArrayLista-----------------------------------------------------------------------------------------------------------------------------*/
