@@ -17,10 +17,11 @@ public class Knjiga {
     protected Jezik jezikOriginala;
     protected String opisKnjige;
     protected ZanrKnjige zanr;
+    protected boolean jeObrisana;
     
     
 	public Knjiga(String id, String naslovKnjige, String originalsniNaslovKnjige, String pisac,
-			int godinaObjavljanjaKnjige, Jezik jezikOriginala, String opisKnjige, ZanrKnjige zanr
+			int godinaObjavljanjaKnjige, Jezik jezikOriginala, String opisKnjige, ZanrKnjige zanr, boolean jeObrisana
 			) {
 		this.id = id;
 		this.naslovKnjige = naslovKnjige;
@@ -30,6 +31,7 @@ public class Knjiga {
 		this.jezikOriginala = jezikOriginala;
 		this.opisKnjige = opisKnjige;
 		this.zanr = zanr;
+		this.jeObrisana = jeObrisana;
 	}
 	
 	public Knjiga() {
@@ -42,6 +44,7 @@ public class Knjiga {
 		this.jezikOriginala = null;
 		this.opisKnjige = "";
 		this.zanr = null;
+		this.jeObrisana = false;
 
 	}
 	public String getId() {
@@ -92,9 +95,16 @@ public class Knjiga {
 	public void setZanr(ZanrKnjige zanr) {
 		this.zanr = zanr;
 	}
+	public boolean isJeObrisana() {
+		return jeObrisana;
+	}
+	public void setJeObrisana(boolean jeObrisana) {
+		this.jeObrisana = jeObrisana;
+	}
+	
 	@Override
 	public String toString() {
-		return id + ";" + naslovKnjige + ";"+ originalsniNaslovKnjige + ";" + pisac + ";" + godinaObjavljanjaKnjige+ ";" + jezikOriginala + ";" + opisKnjige;
+		return id + ";" + naslovKnjige + ";"+ originalsniNaslovKnjige + ";" + pisac + ";" + godinaObjavljanjaKnjige+ ";" + jezikOriginala + ";" + opisKnjige+";"+ zanr.getId();
 	}
     
 //	public ArrayList<Knjiga> citajFajl(String imeFajla) throws IOException{
