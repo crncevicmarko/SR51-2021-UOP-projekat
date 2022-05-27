@@ -2,6 +2,7 @@ package projekatObjektno;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BibliotekaMain {
@@ -61,9 +62,17 @@ public class BibliotekaMain {
 ////		biblioteka.upisiTipClanarine(tip);
 		ClanBiblioteke clan = new ClanBiblioteke("1","Mika","Mikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"vyvbi",LocalDate.parse("2009-02-03"),6,true,tip,false);
 ////		biblioteka.upisiFajlClanBiblioteke(clan);
-		PrimerakKnjige primerak = new PrimerakKnjige("1", 2, true, 1990, false,knjiga,false);
+		PrimerakKnjige primerak = new PrimerakKnjige("prvi", 2, true, 1990, false,knjiga,false);
+		PrimerakKnjige primerak1 = new PrimerakKnjige("drugi", 2, true, 1990, false,knjiga,false);
 ////		biblioteka.upisiPrimerakKnjige(primerak);
-		IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(LocalDate.parse("2007-02-03"),LocalDate.parse("2007-02-03"),admin,clan,primerak,false);
+		ArrayList<PrimerakKnjige> primerci = new ArrayList<PrimerakKnjige>();
+		primerci.add(primerak);
+		primerci.add(primerak1);
+		IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(LocalDate.parse("2007-02-03"),LocalDate.parse("2007-02-03"),admin,clan,primerci,false);
+		ArrayList<IzdavanjeKnjige> izdavanjeKnjiga = new ArrayList<IzdavanjeKnjige>();
+		izdavanjeKnjiga.add(izdavanje);
+		biblioteka.upisiIzdavanjeKnjige(izdavanjeKnjiga);
+		biblioteka.citajIzdavanjeKnjige();
 //		biblioteka.upisiIzdavanjeKnjige(izdavanje);
 //		biblioteka.citajAdministratora("src/projekatObjektno/administartor.txt");
 //		System.out.println(biblioteka.getAdmin().get(0));

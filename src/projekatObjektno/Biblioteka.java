@@ -325,6 +325,7 @@ public class Biblioteka {
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
+//			System.out.println(line);
 			String [] niz = line.split(";");
 			String id = niz[0];
 			String oznaka = niz[1];
@@ -790,6 +791,13 @@ public class Biblioteka {
 	
 	/*CRUD IzdavanjeKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
 	
+	public void dodajIzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
+			ClanBiblioteke clan, ArrayList<PrimerakKnjige> primerak,boolean jeObrisan) throws IOException {
+		this.citajIzdavanjeKnjige();
+		IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIznajmljivanja,datumVracanja,zaposleni,clan,primerak, jeObrisan);
+		this.izdavanjeKnjige.add(izdavanje);
+		this.upisiIzdavanjeKnjige(izdavanjeKnjige);
+	}
 	/*CRUD IzdavanjeKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*IzdavanjeKnjigeArrayLista------------------------------------------------------------------------------------------------------------------------------*/
@@ -827,14 +835,19 @@ public class Biblioteka {
 				}
 			}
 //			ArrayList<PrimerakKnjige> primerciKnjige = citajPrimerke("src/projekatObjektno/primerakKnjige.txt");
-			PrimerakKnjige primerKnjige = null;
-			for (PrimerakKnjige t : this.primerak) {
-				if(t.getId().equals(niz[4])) {
-					primerKnjige = t;
+			ArrayList<PrimerakKnjige> primerci = new ArrayList<PrimerakKnjige>();
+			String[] listaPrimeraka = niz[4].split("\\|");
+			System.out.println(listaPrimeraka.length);
+			for(String s: listaPrimeraka) {
+//				PrimerakKnjige primerKnjige = null;
+				for (PrimerakKnjige t : this.primerak) {
+					if(t.getId().equals(s)) {
+						primerci.add(t);
+					}
 				}
 			}
 			Boolean jeObrisan = Boolean.parseBoolean(niz[5]);
-			IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIznajmljivanja,datumVracanja,zaposleni,clan1,primerKnjige,jeObrisan);
+			IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIznajmljivanja,datumVracanja,zaposleni,clan1,primerci,jeObrisan);
 			this.izdavanjeKnjige.add(izdavanje);
 		}
 		citaj.close();
@@ -847,7 +860,11 @@ public class Biblioteka {
 		File file = new File("src/projekatObjektno/izdavanjeKnjige.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(IzdavanjeKnjige t:izdavanjaKnjige) {
-			String sb = t.getDatumIznajmljivanja()+ ";"+ t.getDatumVracanja()+ ";"+t.getZaposleni().getId()+ ";"+ t.getClan().getId()+ ";"+ t.getPrimerak().getId() + ";" + t.isJeObrisan();
+			String primerci = "";
+			for(PrimerakKnjige p: t.getPrimerak()) {
+				primerci += p.getId()+"|";
+			}
+			String sb = t.getDatumIznajmljivanja()+ ";"+ t.getDatumVracanja()+ ";"+t.getZaposleni().getId()+ ";"+ t.getClan().getId()+ ";"+ primerci + ";" + t.isJeObrisan();
 			writer.write(sb);
 			writer.newLine();;
  		}
@@ -856,7 +873,7 @@ public class Biblioteka {
 	
 	
 	/*CRUD PrimerakKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
-	public void brisanjePrimerka(String id) {
+	public void brisanjePrimerka(String id) { /*Trebas da komitujes*/
 		PrimerakKnjige primerak = null;
 		for(PrimerakKnjige p : this.primerak) {
 			if(p.getId().equals(id)) {
@@ -881,6 +898,7 @@ public class Biblioteka {
 				primerak = p;
 			}
 		}
+		
 		Set<String> kljucevi = parametri.keySet();
 		for(String kljuc: kljucevi) {
 			switch (kljuc) {
@@ -913,9 +931,8 @@ public class Biblioteka {
 				break;
 			}
 		}
-		
 	}
-	/*CRUD PrimerskKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
+	/*CRUD PrimerskKnjige -------------------------------------------------------------------------------------------------------------------------------------*/
 	
 	
 	/*PrimerakKnjigeArrayLista---------------------------------------------------------------------------------------------------------------------------------*/

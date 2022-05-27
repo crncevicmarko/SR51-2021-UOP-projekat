@@ -1,4 +1,4 @@
-novi id;hthtrh;rghtrhb
-1;hthtrh;rghtrhb
-2;hthtrh;rghtrhb
-promena3;hthtrh;rghtrhb
+novi id;hthtrh;rghtrhb;false
+1;hthtrh;rghtrhb;false
+2;hthtrh;rghtrhb;false
+promena3;hthtrh;rghtrhb;false

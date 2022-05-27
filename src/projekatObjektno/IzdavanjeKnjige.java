@@ -7,16 +7,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class IzdavanjeKnjige {
+//	 protected String id;
 	 protected LocalDate datumIznajmljivanja;
 	 protected LocalDate datumVracanja;
 	 protected Zaposleni zaposleni;
 	 protected ClanBiblioteke clan;
-	 protected PrimerakKnjige primerak;
+	 protected ArrayList<PrimerakKnjige> primerak;
 	 protected boolean jeObrisan;
 	 
 	 
-	public IzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
-			ClanBiblioteke clan, PrimerakKnjige primerak,boolean jeObrisan) {
+	public IzdavanjeKnjige(/*String id,*/LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
+			ClanBiblioteke clan, ArrayList<PrimerakKnjige> primerak,boolean jeObrisan) {
+//		this.id = id;
 		this.datumIznajmljivanja = datumIznajmljivanja;
 		this.datumVracanja = datumVracanja;
 		this.zaposleni = zaposleni;
@@ -25,13 +27,21 @@ public class IzdavanjeKnjige {
 		this.jeObrisan = jeObrisan;
 	}
 	public IzdavanjeKnjige() {
+//		this.id = "";
 		this.datumIznajmljivanja = null;
 		this.datumVracanja= null;
 		this.zaposleni = null; 
 		this.clan = null;
-		this.primerak = null;
+		this.primerak = new ArrayList<PrimerakKnjige>();
 		this.jeObrisan = false;
 	}
+	
+//	public String getId() {
+//		return id;
+//	}
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 	public LocalDate getDatumIznajmljivanja() {
 		return datumIznajmljivanja;
 	}
@@ -56,10 +66,10 @@ public class IzdavanjeKnjige {
 	public void setClan(ClanBiblioteke clan) {
 		this.clan = clan;
 	}
-	public PrimerakKnjige getPrimerak() {
+	public ArrayList<PrimerakKnjige> getPrimerak() {
 		return primerak;
 	}
-	public void setPrimerak(PrimerakKnjige primerak) {
+	public void setPrimerak(ArrayList<PrimerakKnjige> primerak) {
 		this.primerak = primerak;
 	}
 	public boolean isJeObrisan() {
@@ -71,7 +81,7 @@ public class IzdavanjeKnjige {
 	
 	@Override
 	public String toString() {
-		return datumIznajmljivanja + ";" + datumVracanja+ ";" + zaposleni + ";" + clan + ";" + primerak + ";" + jeObrisan;
+		return /*id+";"+*/datumIznajmljivanja + ";" + datumVracanja+ ";" + zaposleni + ";" + clan + ";" + primerak + ";" + jeObrisan;
 	}
 //	
 //	public ArrayList<IzdavanjeKnjige> citajFajl(String imeFajla) throws IOException{
