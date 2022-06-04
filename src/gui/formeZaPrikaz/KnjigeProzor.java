@@ -1,0 +1,88 @@
+package gui.formeZaPrikaz;
+import java.awt.BorderLayout;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JToolBar;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
+import projekatObjektno.Biblioteka;
+import projekatObjektno.Knjiga;
+import projekatObjektno.Zaposleni;
+
+public class KnjigeProzor extends JFrame{
+	private JToolBar mainToolbar = new JToolBar();
+	private JButton btnAdd = new JButton();
+	private JButton btnEdit = new JButton();
+	private JButton btnDelete = new JButton();
+	private Zaposleni zaposleni;
+	
+	private DefaultTableModel tableModel;
+	private JTable knjigeTabela;
+	
+	private Biblioteka biblioteka;
+
+	public KnjigeProzor (Biblioteka biblioteka,Zaposleni zaposleni) {
+		this.biblioteka = biblioteka;
+		this.zaposleni = zaposleni;
+		setTitle("Kompozicije");
+		setSize(300, 300);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLocationRelativeTo(null);
+		initGUI();
+		initActions();
+	}
+	
+	private void initGUI() {
+		ImageIcon addIcon = new ImageIcon(getClass().getResource("/slike/add.gif"));
+		btnAdd.setIcon(addIcon);
+		ImageIcon editIcon = new ImageIcon(getClass().getResource("/slike/edit.gif"));
+		btnEdit.setIcon(editIcon);
+		ImageIcon deleteIcon = new ImageIcon(getClass().getResource("/slike/remove.gif"));
+		btnDelete.setIcon(deleteIcon);
+		
+		mainToolbar.add(btnAdd);
+		mainToolbar.add(btnEdit);
+		mainToolbar.add(btnDelete);
+		add(mainToolbar, BorderLayout.NORTH);
+		
+		String[] zaglavlja = new String[] {"Id", "Naslov Knjige", "Pisac", "Godina Objavljivanja", "JezikOriginala", "Opis Knjige","ZanrKnjige"};
+		Object[][] sadrzaj = new Object[biblioteka.sveNeobrisaneKnjige().size()][zaglavlja.length];
+		
+		for(int i=0; i<biblioteka.sveNeobrisaneKnjige().size(); i++) {
+			Knjiga knjiga = biblioteka.sveNeobrisaneKnjige().get(i);
+//			Knjiga knjiga = biblioteka.pronadjiDisk(knjiga);
+			sadrzaj[i][0] = knjiga.getId();
+			sadrzaj[i][1] = knjiga.getNaslovKnjige();
+			sadrzaj[i][2] = knjiga.getPisac();
+			sadrzaj[i][3] = knjiga.getGodinaObjavljanjaKnjige();
+			sadrzaj[i][4] = knjiga.getJezikOriginala();
+			sadrzaj[i][5] = knjiga.getOpisKnjige();
+			sadrzaj[i][6] = knjiga.getZanr().getId();
+//			sadrzaj[i][2] = disk == null ? "--" : disk.getNaziv();
+		}
+		
+		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
+		JTable knjigeTabela = new JTable(tableModel);
+		
+		knjigeTabela.setRowSelectionAllowed(true);
+		knjigeTabela.setColumnSelectionAllowed(false);
+		knjigeTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		knjigeTabela.setDefaultEditor(Object.class, null);
+		knjigeTabela.getTableHeader().setReorderingAllowed(false);
+		
+		JScrollPane scrollPane = new JScrollPane(knjigeTabela);
+		add(scrollPane, BorderLayout.CENTER);
+		
+		
+	}
+
+	private void initActions() {
+		// TODO Auto-generated method stub
+		
+	}
+}

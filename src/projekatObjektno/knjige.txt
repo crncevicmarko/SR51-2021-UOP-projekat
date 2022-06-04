@@ -10,3 +10,5 @@ NaslovNova;OpisKnjige;Aristotel;OGnaslovKnjige;1980;ENGLESKI;idNova;novi id;fals
 NaslovNova;OpisKnjige;Aristotel;OGnaslovKnjige;1980;ENGLESKI;idNova;novi id;false
 NaslovNova;OpisKnjige;Aristotel;OGnaslovKnjige;1980;ENGLESKI;idNova;novi id;false
 NaslovNova;OpisKnjige;Aristotel;OGnaslovKnjige;1980;ENGLESKI;idNova;novi id;false
+NaslovNova;OpisKnjige;Aristotel;OGnaslovKnjige;1980;ENGLESKI;idNova;novi id;false
+NaslovNova;OpisKnjige;Aristotel;OGnaslovKnjige;1980;ENGLESKI;idNova;novi id;false

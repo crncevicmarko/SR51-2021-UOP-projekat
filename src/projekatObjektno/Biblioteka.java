@@ -14,6 +14,8 @@ import java.util.Iterator;
 import java.util.Set;
 //import java.util.ArrayList;
 
+//import osobe.Prodavac;
+
 
 public class Biblioteka {
 	protected String naziv;
@@ -33,9 +35,8 @@ public class Biblioteka {
 	protected ArrayList<PrimerakKnjige> primerak;
 	
 	/*proveri za kasnije sta treba da se jos doda*/
-	
-	public Biblioteka(String naziv, String adresa, String telefon, LocalDate otvaranje, LocalDate zatvaranje,
-			String id) {
+
+	public Biblioteka(String adresa, String id, String naziv, String telefon, LocalDate otvaranje, LocalDate zatvaranje) {
 		super();
 		this.naziv = naziv;
 		this.adresa = adresa;
@@ -155,6 +156,107 @@ public class Biblioteka {
 	public void setBibliotekar(ArrayList<Bibliotekar> bibliotekar) {
 		this.bibliotekar = bibliotekar;
 	}
+	
+	
+	
+	public Bibliotekar login(String korisnickoIme, String lozinka) {
+		for(Bibliotekar bibliotekar1 : bibliotekar) {
+			if(bibliotekar1.getKorisnickoIme().equalsIgnoreCase(korisnickoIme) &&
+					bibliotekar1.getKorisnickaSifra().equals(lozinka) && !bibliotekar1.isJeObrisan()) {
+				return bibliotekar1;
+			}
+		}
+		return null;
+	}
+	
+	
+	/*SviObrisani*/
+	public ArrayList<ZanrKnjige> sviNeobrisaniZanrovi() {
+		ArrayList<ZanrKnjige> neobrisani = new ArrayList<ZanrKnjige>();
+		for (ZanrKnjige zanr : zanrovi) {
+			if(!zanr.isJeObrisan()) {
+				neobrisani.add(zanr);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<Knjiga> sveNeobrisaneKnjige() {
+		ArrayList<Knjiga> neobrisani = new ArrayList<Knjiga>();
+		for (Knjiga knjiga : knjige) {
+			if(!knjiga.isJeObrisana()) {
+				neobrisani.add(knjiga);
+			}
+		}
+		return neobrisani;
+	}
+	public ArrayList<PrimerakKnjige> sviNeobrisaniPrimerciKnjige() {
+		ArrayList<PrimerakKnjige> neobrisani = new ArrayList<PrimerakKnjige>();
+		for (PrimerakKnjige prime : primerak) {
+			if(!prime.isJeObrisan()) {
+				neobrisani.add(prime);
+			}
+		}
+		return neobrisani;
+	}
+	public ArrayList<ClanBiblioteke> sviNeobrisaniClanoviBiblioteke() {
+		ArrayList<ClanBiblioteke> neobrisani = new ArrayList<ClanBiblioteke>();
+		for (ClanBiblioteke clan : clanbiblioteke) {
+			if(!clan.isJeObrisan()) {
+				neobrisani.add(clan);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<Administrator> sviNeobrisaniAdministatori() {
+		ArrayList<Administrator> neobrisani = new ArrayList<Administrator>();
+		for (Administrator admini : admin) {
+			if(!admini.isJeObrisan()) {
+				neobrisani.add(admini);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<Bibliotekar> sviNeobrisaniBibliotekari() {
+		ArrayList<Bibliotekar> neobrisani = new ArrayList<Bibliotekar>();
+		for (Bibliotekar bibliotekari : bibliotekar) {
+			if(!bibliotekari.isJeObrisan()) {
+				neobrisani.add(bibliotekari);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<TipClanarine> sviNeobrisaniTipovi() {
+		ArrayList<TipClanarine> neobrisani = new ArrayList<TipClanarine>();
+		for (TipClanarine tipovi : tipClanarine) {
+			if(!tipovi.isJeObrisan()) {
+				neobrisani.add(tipovi);
+			}
+		}
+		return neobrisani;
+	}
+	
+	public ArrayList<IzdavanjeKnjige> svaNeobrisanaIzdavanja() {
+		ArrayList<IzdavanjeKnjige> neobrisani = new ArrayList<IzdavanjeKnjige>();
+		for (IzdavanjeKnjige izdavanja : izdavanjeKnjige) {
+			if(!izdavanja.isJeObrisan()) {
+				neobrisani.add(izdavanja);
+			}
+		}
+		return neobrisani;
+	}
+	/*dodaj jos metoda*/
+	
+	
+	
+	
+	/*SviObrisani*/
+	
+	
+	
 	
 	/*Knjiga CRUD------------------------------------------------------------------------------------------------------------------------------------*/
 	
@@ -349,6 +451,44 @@ public class Biblioteka {
 		writer.close();
 	}
 	/*------------------------------------------------------------------------------------------------------------------------------------------------------*/
+	public Biblioteka citajBiblioteku(){
+//		public ArrayList<ZanrKnjige> citajZanroveIzFajla(String imeFajla) throws IOException{
+//			ArrayList<ZanrKnjige> zanrknjige = new ArrayList<ZanrKnjige>();
+		
+//		String naziv, String adresa, String telefon, LocalDate otvaranje, LocalDate zatvaranje,
+//		String id
+			Biblioteka biblioteka = null;
+			try {
+			File fajl = new File("src/projekatObjektno/biblioteka.txt");
+			BufferedReader citaj = new BufferedReader(new FileReader(fajl));
+			String line = null;
+			while((line = citaj.readLine())!= null) {
+//				System.out.println(line);
+				String [] niz = line.split(";");
+				String adresa = niz[0];
+				String id = niz[1];
+				String naziv = niz[2];
+				String telefon = niz[3];
+				LocalDate otvaranje = LocalDate.parse(niz[4]);
+				LocalDate zatvaranje = LocalDate.parse(niz[5]);
+				
+				this.setAdresa(adresa);
+				this.setId(id);
+				this.setNaziv(naziv);
+				this.setTelefon(telefon);
+				this.setOtvaranje(otvaranje);
+				this.setZatvaranje(zatvaranje);
+			}
+			
+			citaj.close();
+			}
+			catch(IOException e) {
+				e.printStackTrace();
+			}
+			return biblioteka;
+	}
+	
+	
 	public void upisiFajl(Biblioteka k ) throws IOException{
 //		ArrayList<Biblioteka> biblioteka = biblUpis;
 		File file = new File("src/projekatObjektno/biblioteka.txt");
@@ -568,6 +708,7 @@ public class Biblioteka {
 		citaj.close();
 //		return bibliotekar;	
 	}
+//	id, ime, prezime, jMBG, adresa, pol, korisnickaSifra, korisnickoIme,plata,jeObrisan
 	public void upisiFajlBibliotekar(ArrayList<Bibliotekar>bibliotekari) throws IOException{ /*jeObrisan ne fali*/
 //		ArrayList<Knjiga> knjige = kjnigeUpis;
 		File file = new File("src/projekatObjektno/bibliotekar.txt");
@@ -703,7 +844,7 @@ public class Biblioteka {
 	File file = new File("src/projekatObjektno/clanbiblioteke.txt");
 	BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 	for (ClanBiblioteke c: clanovi) {
-		String sb = c.getId() +";"+ c.getIme() + ";"+c.getPrezime()+ ";"+c.getJMBG() +";"+ c.getAdresa()+ ";" +c.getPol() +";"+c.getBrClankarte()+";"+c.getDatumPoslednjeUplate()+";"+c.getBrojMeseciClanarine()+ ";"+c.getAktivan()+";"+c.getTipClanarine()+";"+c.isJeObrisan();
+		String sb = c.getId() +";"+ c.getIme() + ";"+c.getPrezime()+ ";"+c.getJMBG() +";"+ c.getAdresa()+ ";" +c.getPol() +";"+c.getBrClankarte()+";"+c.getDatumPoslednjeUplate()+";"+c.getBrojMeseciClanarine()+ ";"+c.getAktivan()+";"+c.getTipClanarine().getId()+";"+c.isJeObrisan();
 		writer.write(sb);
 		writer.newLine();
 	}
@@ -781,23 +922,16 @@ public class Biblioteka {
 		File file = new File("src/projekatObjektno/tipclanarine.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(TipClanarine t:tipoviclanarine) {
-			String sb = t.getNaziv()+ ";"+ t.getId()+ ";"+t.getCena()+";"+t.isJeObrisan();
+			String sb = t.getId()+";"+ t.getNaziv()+ ";"+t.getCena()+";"+t.isJeObrisan();
 			writer.write(sb);
-			writer.newLine();;
+			writer.newLine();
  		}
 		writer.close();
 	}
 	
 	
 	/*CRUD IzdavanjeKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
-	
-	public void dodajIzdavanjeKnjige(LocalDate datumIznajmljivanja, LocalDate datumVracanja, Zaposleni zaposleni,
-			ClanBiblioteke clan, ArrayList<PrimerakKnjige> primerak,boolean jeObrisan) throws IOException {
-		this.citajIzdavanjeKnjige();
-		IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIznajmljivanja,datumVracanja,zaposleni,clan,primerak, jeObrisan);
-		this.izdavanjeKnjige.add(izdavanje);
-		this.upisiIzdavanjeKnjige(izdavanjeKnjige);
-	}
+
 	/*CRUD IzdavanjeKnjige ---------------------------------------------------------------------------------------------------------------------------------*/
 	
 	/*IzdavanjeKnjigeArrayLista------------------------------------------------------------------------------------------------------------------------------*/
@@ -809,7 +943,7 @@ public class Biblioteka {
 		BufferedReader citaj = new BufferedReader(new FileReader(fajl));
 		String line = null;
 		while((line = citaj.readLine())!= null) {
-			String [] niz = line.split(";");
+			String [] niz = line.split("\\|");
 			LocalDate datumIznajmljivanja = LocalDate.parse(niz[0]);
 			LocalDate datumVracanja = LocalDate.parse(niz[1]);
 //			ArrayList<ClanBiblioteke> clanovi = citajClanove("src/projekatObjektno/clanbiblioteke.txt");
@@ -864,7 +998,7 @@ public class Biblioteka {
 			for(PrimerakKnjige p: t.getPrimerak()) {
 				primerci += p.getId()+"|";
 			}
-			String sb = t.getDatumIznajmljivanja()+ ";"+ t.getDatumVracanja()+ ";"+t.getZaposleni().getId()+ ";"+ t.getClan().getId()+ ";"+ primerci + ";" + t.isJeObrisan();
+			String sb = t.getDatumIznajmljivanja()+ "|"+ t.getDatumVracanja()+ "|"+t.getZaposleni().getId()+ "|"+ t.getClan().getId()+ "|"+ primerci + "|" + t.isJeObrisan();
 			writer.write(sb);
 			writer.newLine();;
  		}
