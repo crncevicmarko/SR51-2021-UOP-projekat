@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.formeZaDodavanje.DijalogDodajBibliotekare;
 import gui.formeZaDodavanje.DijalogDodajClana;
+import gui.formeZaIzmenu.DijalogIzmeniClana;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.ClanBiblioteke;
 import projekatObjektno.ZanrKnjige;
@@ -130,6 +131,21 @@ public class ClanBibliotekeProzor extends JFrame{
 				da.setVisible(true);
 				ClanBibliotekeProzor.this.dispose();
 				ClanBibliotekeProzor.this.setVisible(false);
+			}
+		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int row = clanoviTabela.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null, "Morate da izberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				String id = tableModel.getValueAt(row, 0).toString();
+				ClanBiblioteke clan = biblioteka.pronadjiClana(id);
+				DijalogIzmeniClana edit = new DijalogIzmeniClana(biblioteka, clan);
+				edit.setVisible(true);
 			}
 		});
 	}

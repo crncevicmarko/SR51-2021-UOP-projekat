@@ -63,7 +63,7 @@ public class PrimerakKnjigeProzor extends JFrame {
 		
 		String[] zaglavlja = new String[] {"Id", "Br.Strana", "TipPoveza", "GodinaStampanja", "Iznajmljena","Knjiga"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimerciKnjige().size()][zaglavlja.length];
-		
+		System.out.println(biblioteka.sviNeobrisaniPrimerciKnjige());
 		for(int i=0; i<biblioteka.sviNeobrisaniPrimerciKnjige().size(); i++) {
 			PrimerakKnjige primerak = biblioteka.sviNeobrisaniPrimerciKnjige().get(i);
 			sadrzaj[i][0] = primerak.getId();
@@ -71,7 +71,7 @@ public class PrimerakKnjigeProzor extends JFrame {
 			sadrzaj[i][2] = primerak.isTipPoveza();
 			sadrzaj[i][3] = primerak.getGodinaStampanja();
 			sadrzaj[i][4] = primerak.isJeliIznajmljena();
-			sadrzaj[i][5] = primerak.getKnjiga()/*.getId()*/;
+			sadrzaj[i][5] = primerak.getKnjiga().getId();
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);

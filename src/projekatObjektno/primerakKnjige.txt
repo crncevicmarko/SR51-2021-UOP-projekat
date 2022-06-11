@@ -1,2 +1,3 @@
-prvi;2;true;1990;false;1;p;z;n;1;ENGLESKI;m;false
-drugi;2;true;1990;false;1;p;z;n;1;ENGLESKI;m;false
+novi;2;true;1990;false;knjigaid;false
+drugi;2;true;1990;false;knjigaid;false
+1;90;false;9099;true;knjigaid;false

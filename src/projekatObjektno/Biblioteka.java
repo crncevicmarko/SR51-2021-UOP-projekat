@@ -171,7 +171,32 @@ public class Biblioteka {
 //	String brClankarte, LocalDate datumPoslednjeUplate, int brojMeseciClanarine, boolean aktivan,
 //	TipClanarine tipClanarine,boolean jeObrisan
 	
+	public Administrator pronadjiAdmina(String id) {
+		for (Administrator admin : this.admin) {
+			if(admin.getId().equals(id)) {
+				return admin;
+			}
+		}
+		return null;
+	}
 	
+	public ClanBiblioteke pronadjiClana(String id) {
+		for (ClanBiblioteke clan : this.clanbiblioteke) {
+			if(clan.getId().equals(id)) {
+				return clan;
+			}
+		}
+		return null;
+	}
+	
+	public Bibliotekar pronadjiBibliotekara(String id) {
+		for (Bibliotekar bibliotekar : this.bibliotekar) {
+			if(bibliotekar.getId().equals(id)) {
+				return bibliotekar;
+			}
+		}
+		return null;
+	}
 	public Administrator pronadjiAminaPoKorisnickomImenu(String korisnickoIme) {
 		for(Administrator admin:this.admin) {
 			if(admin.getKorisnickoIme().equals(korisnickoIme)) {
@@ -1247,6 +1272,8 @@ public class Biblioteka {
 	/*PrimerakKnjigeArrayLista---------------------------------------------------------------------------------------------------------------------------------*/
 //	public ArrayList<PrimerakKnjige> citajPrimerke(String imeFajla) throws IOException{
 	public void citajPrimerke() throws IOException{
+		this.citajKnjige();
+		System.out.println(this.knjige);
 //		ArrayList<PrimerakKnjige> primerakKnjige = new ArrayList<PrimerakKnjige>();
 		this.primerak = new ArrayList<PrimerakKnjige>();
 		File fajl = new File("src/projekatObjektno/primerakKnjige.txt");

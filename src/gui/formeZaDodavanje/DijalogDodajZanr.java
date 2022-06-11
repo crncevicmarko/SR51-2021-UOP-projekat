@@ -82,13 +82,14 @@ public class DijalogDodajZanr extends JDialog{
 					if(zanrKnjige == null) {
 						ZanrKnjige zanr = new ZanrKnjige(id,oznaka,opis,false);
 						biblioteka.getZanrovi().add(zanr);
-					}else {
-						zanrKnjige.setId(id);
-						zanrKnjige.setOpis(opis);
-						zanrKnjige.setOznaka(oznaka);
-					}
+					}/*else {*/
+//						zanrKnjige.setId(id);
+//						zanrKnjige.setOpis(opis);
+//						zanrKnjige.setOznaka(oznaka);
+//					}
 					try {
 						biblioteka.sacuvajZanrKnjige();
+						DijalogDodajZanr.this.setVisible(false);
 					}catch (IOException e1) {
 						e1.printStackTrace();
 					}

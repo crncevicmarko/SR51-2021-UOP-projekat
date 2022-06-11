@@ -1,28 +1,23 @@
-package gui.formeZaDodavanje;
+package gui.formeZaIzmenu;
 
-import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import gui.formeZaPrikaz.AdministratorProzor;
+import gui.formeZaDodavanje.DijalogDodajAdmine;
 import net.miginfocom.swing.MigLayout;
 import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
-import projekatObjektno.Bibliotekar;
 import projekatObjektno.EmnumPol;
-import projekatObjektno.Zaposleni;
 
-public class DijalogDodajAdmine extends JDialog{
+public class DijalogIzmeniAdmina extends JDialog{
 	 private Biblioteka biblioteka;
 	 private Administrator administrator;
 //	 int index;
@@ -49,8 +44,9 @@ public class DijalogDodajAdmine extends JDialog{
 	 private JButton btnSave = new JButton("Save");
 	 private JButton btnCancel = new JButton("Cancel");
 	 
-	 public DijalogDodajAdmine(Biblioteka biblioteka) {
+	 public DijalogIzmeniAdmina(Biblioteka biblioteka, Administrator administrator) {
 		 this.biblioteka = biblioteka;
+		 this.administrator = administrator;
 		 setTitle("Dodavanje novog administratora");
 		 setSize(500,500);
 		 setResizable(false);
@@ -58,6 +54,7 @@ public class DijalogDodajAdmine extends JDialog{
 		 setLocationRelativeTo(null);
 		 initGUI();
 		 initActions();
+		 pack();
 	 }
 
 	private void initGUI() {
@@ -66,6 +63,8 @@ public class DijalogDodajAdmine extends JDialog{
 		
 		add(lblID);
 		add(txtID);
+		txtID.setEditable(false);
+		txtJMBG.setEditable(false);
 		add(lblIme);
 		add(txtIme);
 		add(lblPrezime);
@@ -84,21 +83,32 @@ public class DijalogDodajAdmine extends JDialog{
 		add(txtPlata);
 		add(btnSave);
 		add(btnCancel);
+		
+		if(administrator != null) {
+			txtID.setText(administrator.getId());
+			txtIme.setText(administrator.getIme());
+			txtPrezime.setText(administrator.getPrezime());
+			txtAdresa.setText(administrator.getAdresa());
+			txtJMBG.setText(administrator.getJMBG());
+			cmbxEmnumPol.setSelectedItem(administrator.getPol());
+			txtKorisnickoIme.setText(administrator.getKorisnickoIme());
+			txtKorisnickoIme.setEnabled(false);
+			txtKorisnickaSifra.setText(administrator.getKorisnickaSifra());
+			txtPlata.setText(administrator.getPlata());
+		}
 	}
 
-	private void initActions() {
-		 
+	private void initActions() { 
 		btnCancel.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DijalogDodajAdmine.this.dispose();
-				DijalogDodajAdmine.this.setVisible(false);
+				DijalogIzmeniAdmina.this.dispose();
+				DijalogIzmeniAdmina.this.setVisible(false);
 			}
 		});
 		
 		btnSave.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String id = txtID.getText().trim();
@@ -115,33 +125,30 @@ public class DijalogDodajAdmine extends JDialog{
 				if(id.equals("")||ime.equals("")||prezime.equals("")||JMBG.equals("")||adresa.equals("")||sifra.equals("")||koriskickoIme.equals("")||plata.equals("")) {
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}
-				else {
 					if(administrator == null) {
 						if(biblioteka.pronadjiAminaPoKorisnickomImenu(koriskickoIme)!= null) {
 							JOptionPane.showMessageDialog(null, "Korisnicko ime vec postoji!", "Greska",JOptionPane.WARNING_MESSAGE);	
 						}
-						Administrator noviadmin= new Administrator(id,ime,prezime,JMBG,adresa,pol,sifra,koriskickoIme,plata,false);
-						biblioteka.getAdmin().add(noviadmin);
 					}
-//					else {
-//						administrator.setId(id);
-//						administrator.setIme(ime);
-//						administrator.setPrezime(prezime);
-//						administrator.setJMBG(JMBG);
-//						administrator.setAdresa(adresa);
-//						administrator.setPol(pol);
-//						administrator.setKorisnickaSifra(sifra);
-//						administrator.setKorisnickoIme(koriskickoIme);
-//						administrator.setPlata(plata);
-//					}
+					else {
+						administrator.setId(id);
+						administrator.setIme(ime);
+						administrator.setPrezime(prezime);
+						administrator.setJMBG(JMBG);
+						administrator.setAdresa(adresa);
+						administrator.setPol(pol);
+						administrator.setKorisnickaSifra(sifra);
+						administrator.setKorisnickoIme(koriskickoIme);
+						administrator.setPlata(plata);
+					}
 					try {
 						biblioteka.sacuvajAdministatore();
-						DijalogDodajAdmine.this.setVisible(false);
+						DijalogIzmeniAdmina.this.setVisible(false);
 					}catch (Exception e1) {
 						e1.printStackTrace();
 					}
 				}
-			}
+//			}
 		});
 		
 	}

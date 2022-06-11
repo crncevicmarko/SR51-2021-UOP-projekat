@@ -48,7 +48,7 @@ public class DijalogDodajPrimerakKnjige extends JDialog{
 	 public DijalogDodajPrimerakKnjige(Biblioteka biblioteka, PrimerakKnjige primerak) {
 		 this.biblioteka = biblioteka;
 		 this.primerak = primerak;
-		 setTitle("Dodavanje novog administratora");
+		 setTitle("Dodavanje novi primerak");
 		 setSize(500,500);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 setLocationRelativeTo(null);
@@ -126,7 +126,7 @@ public class DijalogDodajPrimerakKnjige extends JDialog{
 	private void initGUI() {
 		ArrayList<Knjiga> knjige = biblioteka.sveNeobrisaneKnjige();
 		for(Knjiga knjiga : knjige) {
-			cmbxKnjiga.addItem(knjiga.getOpisKnjige());
+			cmbxKnjiga.addItem(knjiga.getNaslovKnjige());
 		}
 		
 		MigLayout mig = new MigLayout("wrap 2","[][]","[]10[]10[]");

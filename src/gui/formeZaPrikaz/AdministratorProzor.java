@@ -16,6 +16,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import gui.formeZaDodavanje.DijalogDodajAdmine;
+import gui.formeZaIzmenu.DijalogIzmeniAdmina;
 import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.ClanBiblioteke;
@@ -96,6 +97,24 @@ public class AdministratorProzor extends JFrame{
 
 	}
 	private void initActions() {
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int row = administratoriTabela.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null, "Morate da izaberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					String id = tableModel.getValueAt(row, 0).toString();
+					Administrator admin = biblioteka.pronadjiAdmina(id);
+					System.out.println(admin);
+					DijalogIzmeniAdmina edit = new DijalogIzmeniAdmina(biblioteka,admin);
+					edit.setVisible(true);
+				}
+				
+			}
+		});
 		btnDelete.addActionListener(new ActionListener() {
 			
 			@Override
@@ -129,7 +148,7 @@ public class AdministratorProzor extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DijalogDodajAdmine da = new DijalogDodajAdmine(biblioteka, admin);
+				DijalogDodajAdmine da = new DijalogDodajAdmine(biblioteka);
 				da.setVisible(true);
 				AdministratorProzor.this.dispose();
 				AdministratorProzor.this.setVisible(false);

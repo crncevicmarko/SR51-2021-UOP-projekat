@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.formeZaDodavanje.DijalogDodajAdmine;
 import gui.formeZaDodavanje.DijalogDodajBibliotekare;
+import gui.formeZaIzmenu.DijalogIzmeniAdmina;
+import gui.formeZaIzmenu.DijalogIzmeniBibliotekara;
 import projekatObjektno.Administrator;
 //import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
@@ -134,6 +136,22 @@ public class BibliotekarProzor extends JFrame{
 				da.setVisible(true);
 				BibliotekarProzor.this.dispose();
 				BibliotekarProzor.this.setVisible(false);
+			}
+		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int row = bibiliotekariTabela.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null, "Morate da izaberete red koji zelite da proemnite","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				String id = tableModel.getValueAt(row, 0).toString();
+				Bibliotekar bibliotekar = biblioteka.pronadjiBibliotekara(id);
+				System.out.println(bibliotekar);
+				DijalogIzmeniBibliotekara edit = new DijalogIzmeniBibliotekara(biblioteka,bibliotekar);
+				edit.setVisible(true);
 			}
 		});
 	}

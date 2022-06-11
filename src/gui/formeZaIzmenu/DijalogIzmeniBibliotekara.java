@@ -1,32 +1,29 @@
-package gui.formeZaDodavanje;
+package gui.formeZaIzmenu;
 
-import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import gui.formeZaPrikaz.AdministratorProzor;
+import gui.formeZaDodavanje.DijalogDodajBibliotekare;
 import net.miginfocom.swing.MigLayout;
-import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.Bibliotekar;
 import projekatObjektno.EmnumPol;
-import projekatObjektno.Zaposleni;
 
-public class DijalogDodajAdmine extends JDialog{
-	 private Biblioteka biblioteka;
-	 private Administrator administrator;
+public class DijalogIzmeniBibliotekara extends JDialog{
+	private Biblioteka biblioteka;
+	 private Bibliotekar bibliotekar;
 //	 int index;
 	 
+//	 String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
+//		String korisnickaSifra, String korisnickoIme,double plata,boolean jeObrisan
 	 private JLabel lblID = new JLabel("ID");
 	 private JTextField txtID = new JTextField(20);
 	 private JLabel lblIme = new JLabel("Ime");
@@ -49,9 +46,10 @@ public class DijalogDodajAdmine extends JDialog{
 	 private JButton btnSave = new JButton("Save");
 	 private JButton btnCancel = new JButton("Cancel");
 	 
-	 public DijalogDodajAdmine(Biblioteka biblioteka) {
+	 public DijalogIzmeniBibliotekara(Biblioteka biblioteka,Bibliotekar bibliotekar) {
 		 this.biblioteka = biblioteka;
-		 setTitle("Dodavanje novog administratora");
+		 this.bibliotekar = bibliotekar;
+		 setTitle("Dodavanje novog bibliotekara");
 		 setSize(500,500);
 		 setResizable(false);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -60,43 +58,17 @@ public class DijalogDodajAdmine extends JDialog{
 		 initActions();
 	 }
 
-	private void initGUI() {
-		MigLayout mig = new MigLayout("wrap 2","[][]","[]10[]10[]");
-		setLayout(mig);
-		
-		add(lblID);
-		add(txtID);
-		add(lblIme);
-		add(txtIme);
-		add(lblPrezime);
-		add(txtPrezime);
-		add(lblJMBG);
-		add(txtJMBG);
-		add(lblAdresa);
-		add(txtAdresa);
-		add(lblEmnumPol);
-		add(cmbxEmnumPol);
-		add(lblKorisnickoIme);
-		add(txtKorisnickoIme);
-		add(lblKorisnickaSifra);
-		add(txtKorisnickaSifra);
-		add(lblPlata);
-		add(txtPlata);
-		add(btnSave);
-		add(btnCancel);
-	}
-
-	private void initActions() {
-		 
+	private void initActions() {	
 		btnCancel.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DijalogDodajAdmine.this.dispose();
-				DijalogDodajAdmine.this.setVisible(false);
+				DijalogIzmeniBibliotekara.this.dispose();
+				DijalogIzmeniBibliotekara.this.setVisible(false);
 			}
 		});
-		
+//		 String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
+//			String korisnickaSifra, String korisnickoIme,String plata,boolean jeObrisan
 		btnSave.addActionListener(new ActionListener() {
 			
 			@Override
@@ -116,33 +88,72 @@ public class DijalogDodajAdmine extends JDialog{
 					JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za dodavanje.", "Greska", JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					if(administrator == null) {
+					if(bibliotekar == null) {
 						if(biblioteka.pronadjiAminaPoKorisnickomImenu(koriskickoIme)!= null) {
 							JOptionPane.showMessageDialog(null, "Korisnicko ime vec postoji!", "Greska",JOptionPane.WARNING_MESSAGE);	
 						}
-						Administrator noviadmin= new Administrator(id,ime,prezime,JMBG,adresa,pol,sifra,koriskickoIme,plata,false);
-						biblioteka.getAdmin().add(noviadmin);
 					}
-//					else {
-//						administrator.setId(id);
-//						administrator.setIme(ime);
-//						administrator.setPrezime(prezime);
-//						administrator.setJMBG(JMBG);
-//						administrator.setAdresa(adresa);
-//						administrator.setPol(pol);
-//						administrator.setKorisnickaSifra(sifra);
-//						administrator.setKorisnickoIme(koriskickoIme);
-//						administrator.setPlata(plata);
-//					}
+					else {
+						bibliotekar.setId(id);
+						bibliotekar.setIme(ime);
+						bibliotekar.setPrezime(prezime);
+						bibliotekar.setJMBG(JMBG);
+						bibliotekar.setAdresa(adresa);
+						bibliotekar.setPol(pol);
+						bibliotekar.setKorisnickaSifra(sifra);
+						bibliotekar.setKorisnickoIme(koriskickoIme);
+						bibliotekar.setPlata(plata);
+					}
 					try {
-						biblioteka.sacuvajAdministatore();
-						DijalogDodajAdmine.this.setVisible(false);
+						biblioteka.sacuvajBibliotekre();
+						DijalogIzmeniBibliotekara.this.setVisible(false);
 					}catch (Exception e1) {
 						e1.printStackTrace();
 					}
 				}
 			}
 		});
+	}
+
+	private void initGUI() {
+		MigLayout mig = new MigLayout("wrap 2","[][]","[]10[]10[]");
+		setLayout(mig);
+		
+		add(lblID);
+		add(txtID);
+		txtID.setEditable(false);
+		txtJMBG.setEditable(false);
+		txtKorisnickoIme.setEnabled(false);
+		add(lblIme);
+		add(txtIme);
+		add(lblPrezime);
+		add(txtPrezime);
+		add(lblJMBG);
+		add(txtJMBG);
+		add(lblAdresa);
+		add(txtAdresa);
+		add(lblEmnumPol);
+		add(cmbxEmnumPol);
+		add(lblKorisnickoIme);
+		add(txtKorisnickoIme);
+		add(lblKorisnickaSifra);
+		add(txtKorisnickaSifra);
+		add(lblPlata);
+		add(txtPlata);
+		add(btnSave);
+		add(btnCancel);
+		
+		if(bibliotekar != null) {
+			txtID.setText(bibliotekar.getId());
+			txtIme.setText(bibliotekar.getIme());
+			txtPrezime.setText(bibliotekar.getPrezime());
+			txtJMBG.setText(bibliotekar.getJMBG());
+			txtAdresa.setText(bibliotekar.getAdresa());
+			cmbxEmnumPol.setSelectedItem(bibliotekar.getPol());
+			txtKorisnickoIme.setText(bibliotekar.getKorisnickoIme());
+			txtKorisnickaSifra.setText(bibliotekar.getKorisnickaSifra());
+			txtPlata.setText(bibliotekar.getPlata());
+		}
 		
 	}
 }

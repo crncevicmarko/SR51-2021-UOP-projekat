@@ -1,5 +1,0 @@
-1;Zika;Zikic;8658568568568;ZikeZikica;MUSKI;ZikaCAr123;ZikaZ;1121;false
-2;Mika;Mikic;967878677679;Vinogradarska 09;MUSKI;MMiika;Sifra123;1121;false
-3;Pera;Perkic;76786787876876;Musolinijeva BB;MUSKI;PeraDetlic;Password123;1121;false
-4;Djoka;Djokic;775676575678677;Staljinova 120;MUSKI;DjoksBonaparta;SifraPassword1234;1121;true
-5;hihioikji;iiijpojiojioj;678909876;uguyigbhj;ZENSKI;huiohhihjij;uhoihihj;788990;false
