@@ -182,7 +182,7 @@ public class DijalogIzmeniClana extends JDialog{
 				txtAdresa.setText(clan.getAdresa());
 				cmbxEmnumPol.setSelectedItem(clan.getPol());
 				txtbrClankarte.setText(clan.getBrClankarte());
-//				txtdatumPoslednjeUplate.setText(LocalDate.parse(clan.getDatumPoslednjeUplate()));
+				txtdatumPoslednjeUplate.setText((clan.getDatumPoslednjeUplate()).toString());
 				txtbrojmeseci.setText(Integer.toString(clan.getBrojMeseciClanarine()));
 				chbAktivnost.setSelected(clan.getAktivan());
 				cmbxTip.setSelectedItem(clan.getTipClanarine());
