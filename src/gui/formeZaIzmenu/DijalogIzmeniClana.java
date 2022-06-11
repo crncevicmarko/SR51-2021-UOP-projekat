@@ -3,6 +3,7 @@ package gui.formeZaIzmenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -181,8 +182,8 @@ public class DijalogIzmeniClana extends JDialog{
 				txtAdresa.setText(clan.getAdresa());
 				cmbxEmnumPol.setSelectedItem(clan.getPol());
 				txtbrClankarte.setText(clan.getBrClankarte());
-//				txtdatumPoslednjeUplate.set
-//				txtbrojmeseci.setText(clan.getBrojMeseciClanarine());
+//				txtdatumPoslednjeUplate.setText(LocalDate.parse(clan.getDatumPoslednjeUplate()));
+				txtbrojmeseci.setText(Integer.toString(clan.getBrojMeseciClanarine()));
 				chbAktivnost.setSelected(clan.getAktivan());
 				cmbxTip.setSelectedItem(clan.getTipClanarine());
 			}

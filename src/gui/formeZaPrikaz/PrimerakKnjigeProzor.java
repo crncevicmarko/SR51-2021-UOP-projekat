@@ -18,6 +18,9 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.formeZaDodavanje.DijalogDodajAdmine;
 import gui.formeZaDodavanje.DijalogDodajPrimerakKnjige;
+import gui.formeZaIzmenu.DijalogIzmeniAdmina;
+import gui.formeZaIzmenu.DijalogIzmeniPrimerak;
+import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.ClanBiblioteke;
 import projekatObjektno.PrimerakKnjige;
@@ -115,19 +118,33 @@ public class PrimerakKnjigeProzor extends JFrame {
 						tableModel.removeRow(red);
 					}
 				}
-				
 			}
 		});
 		btnAdd.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DijalogDodajPrimerakKnjige da = new DijalogDodajPrimerakKnjige(biblioteka, primerak);
+				DijalogDodajPrimerakKnjige da = new DijalogDodajPrimerakKnjige(biblioteka);
 				da.setVisible(true);
 				PrimerakKnjigeProzor.this.dispose();
 				PrimerakKnjigeProzor.this.setVisible(false);
 			}
 		});
-		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int row = primerciKnjigaTabela.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null, "Morate da izaberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					String id = tableModel.getValueAt(row, 0).toString();
+					PrimerakKnjige primerak = biblioteka.pronadjiPrimerak(id);
+					DijalogIzmeniPrimerak edit = new DijalogIzmeniPrimerak(biblioteka,primerak);
+					edit.setVisible(true);
+				}
+			}
+		});
 	}
 }

@@ -1,11 +1,10 @@
-package gui.formeZaDodavanje;
+package gui.formeZaIzmenu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -14,21 +13,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import gui.formeZaDodavanje.DijalogDodajKnjige;
 import net.miginfocom.swing.MigLayout;
 import projekatObjektno.Biblioteka;
-import projekatObjektno.EmnumPol;
 import projekatObjektno.Jezik;
 import projekatObjektno.Knjiga;
 import projekatObjektno.ZanrKnjige;
-import projekatObjektno.Zaposleni;
 
-public class DijalogDodajKnjige extends JDialog {
-	 private Biblioteka biblioteka;
+public class DijalogIzmeniKnjigu extends JDialog{
+	private Biblioteka biblioteka;
 	 private Knjiga knjiga;
-////	 int index;
-//	 
-////	 String id, String naslovKnjige, String originalsniNaslovKnjige, String pisac,
-////		int godinaObjavljanjaKnjige, Jezik jezikOriginala, String opisKnjige, ZanrKnjige zanr
+
 	 private JLabel lblID = new JLabel("ID");
 	 private JTextField txtID = new JTextField(20);
 	 private JLabel lblINaslov = new JLabel("Naslov Knjige");
@@ -50,23 +45,24 @@ public class DijalogDodajKnjige extends JDialog {
 	 private JButton btnCancel = new JButton("Cancel");
 
 	 
-	 public DijalogDodajKnjige(Biblioteka biblioteka) {
+	 public DijalogIzmeniKnjigu (Biblioteka biblioteka,Knjiga knjiga) {
 		 this.biblioteka = biblioteka;
+		 this.knjiga = knjiga;
 		 setTitle("Dodavanje nove knjige:");
 		 setSize(500,500);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 setLocationRelativeTo(null);
 		 initGUI();
 		 initActions();
-	 	 pack();
+		 pack();
 	 }
 
 	private void initActions() {
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DijalogDodajKnjige.this.dispose();
-				DijalogDodajKnjige.this.setVisible(false);
+				DijalogIzmeniKnjigu.this.dispose();
+				DijalogIzmeniKnjigu.this.setVisible(false);
 			}
 		});
 		
@@ -87,7 +83,6 @@ public class DijalogDodajKnjige extends JDialog {
 				catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "Mora biti numericka vrednost upisana","Greska",JOptionPane.WARNING_MESSAGE);
 				}
-//				String godinaObjavljivanja = txtGodinaObjavljivanja.getText().trim();
 				String opis = txtOpisKnjige.getText().trim();
 				int zanrId = cmbxZanr.getSelectedIndex();
 				String jezikString = cmbxJezik.getSelectedItem().toString();
@@ -98,9 +93,6 @@ public class DijalogDodajKnjige extends JDialog {
 				}
 				
 				if(knjiga == null) {
-//					String id, String naslovKnjige, String originalsniNaslovKnjige, String pisac,
-//					int godinaObjavljanjaKnjige, Jezik jezikOriginala, String opisKnjige, ZanrKnjige zanr, boolean jeObrisana
-//					String id = Integer.toString(biblioteka.getKnjige().size());
 					Knjiga novaKnjiga = new Knjiga(id,naslov,originalniNalsov,pisac,godinaObjavljivanja2,jezik,opis,zanr,false);
 					biblioteka.getKnjige().add(novaKnjiga);
 				}
@@ -115,7 +107,7 @@ public class DijalogDodajKnjige extends JDialog {
 				}
 				try {
 					biblioteka.sacuvajKnjige();
-					DijalogDodajKnjige.this.setVisible(false);
+					DijalogIzmeniKnjigu.this.setVisible(false);
 				}catch(IOException e1) {
 					e1.printStackTrace();
 				}
@@ -124,17 +116,13 @@ public class DijalogDodajKnjige extends JDialog {
 	}
 			
 	private void initGUI() {
-		ArrayList<ZanrKnjige> zanrovi=biblioteka.getZanrovi();
-		for(ZanrKnjige zanr : zanrovi) {
-			cmbxZanr.addItem(zanr.getOpis());
-		}
+		
 		MigLayout mig = new MigLayout("wrap 2","[][]","[]10[]10[]");
 		setLayout(mig);
-//		String id, String naslovKnjige, String originalsniNaslovKnjige, String pisac,
-////	int godinaObjavljanjaKnjige, Jezik jezikOriginala, String opisKnjige, ZanrKnjige zanr
 		
 		add(lblID);
 		add(txtID);
+		txtID.setEditable(false);
 		add(lblINaslov);
 		add(txtNaslov);
 		add(lblOriginalniNalsov);
@@ -153,13 +141,20 @@ public class DijalogDodajKnjige extends JDialog {
 		add(btnSave);
 		add(btnCancel);
 		
-//		if(knjiga != null) {
-//			txtNaslov.setText(knjiga.getNaslovKnjige());
-//			txtOriginalniNalsov.setText(knjiga.getOriginalsniNaslovKnjige());
-//			txtPisac.setText(knjiga.getPisac());
-//			txtGodinaObjavljivanja.setText(Integer.toString(knjiga.getGodinaObjavljanjaKnjige()));
-//			cmbxJezik.setSelectedItem(knjiga.getJezikOriginala());
-//			cmbxZanr.setSelectedItem(knjiga.getZanr().getOpis());
-//		}
+		ArrayList<ZanrKnjige> zanrovi=biblioteka.getZanrovi();
+		for(ZanrKnjige zanr : zanrovi) {
+			cmbxZanr.addItem(zanr.getOpis());
+		}
+		
+		if(knjiga != null) {
+			txtID.setText(knjiga.getId());
+			txtNaslov.setText(knjiga.getNaslovKnjige());
+			txtOriginalniNalsov.setText(knjiga.getOriginalsniNaslovKnjige());
+			txtPisac.setText(knjiga.getPisac());
+			txtGodinaObjavljivanja.setText(Integer.toString(knjiga.getGodinaObjavljanjaKnjige()));
+			cmbxJezik.setSelectedItem(knjiga.getJezikOriginala());
+			txtOpisKnjige.setText(knjiga.getOpisKnjige());
+			cmbxZanr.setSelectedItem(knjiga.getZanr().getOpis());
+		}
 	}
 }

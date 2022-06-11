@@ -112,7 +112,6 @@ public class AdministratorProzor extends JFrame{
 					DijalogIzmeniAdmina edit = new DijalogIzmeniAdmina(biblioteka,admin);
 					edit.setVisible(true);
 				}
-				
 			}
 		});
 		btnDelete.addActionListener(new ActionListener() {

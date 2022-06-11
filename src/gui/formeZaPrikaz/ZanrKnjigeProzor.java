@@ -16,6 +16,9 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.formeZaDodavanje.DijalogDodajAdmine;
 import gui.formeZaDodavanje.DijalogDodajZanr;
+import gui.formeZaIzmenu.DijalogIzmeniAdmina;
+import gui.formeZaIzmenu.DijalogIzmeniZanr;
+import projekatObjektno.Administrator;
 //import artikli.Disk;
 //import artikli.Kompozicija;
 import projekatObjektno.Biblioteka;
@@ -124,6 +127,24 @@ public class ZanrKnjigeProzor extends JFrame{
 				da.setVisible(true);
 				ZanrKnjigeProzor.this.dispose();
 				ZanrKnjigeProzor.this.setVisible(false);
+			}
+		});
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int row = zanroviTabela.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null, "Morate da izaberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					String id = tableModel.getValueAt(row, 0).toString();
+					ZanrKnjige zanr = biblioteka.pronadjiZanr(id);
+					System.out.println(zanr);
+					DijalogIzmeniZanr edit = new DijalogIzmeniZanr(biblioteka,zanr);
+					edit.setVisible(true);
+				}
+				
 			}
 		});
 	}

@@ -1,4 +1,4 @@
-package gui.formeZaDodavanje;
+package gui.formeZaIzmenu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,17 +11,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import gui.formeZaDodavanje.DijalogDodajTip;
 import net.miginfocom.swing.MigLayout;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.TipClanarine;
-import projekatObjektno.ZanrKnjige;
 
-public class DijalogDodajTip extends JDialog{
+public class DijalogIzmeniTip extends JDialog{
 	private Biblioteka biblioteka;
 	private TipClanarine tipClanarine;
 
-	
-//	String id, String naziv, double cena
 	 private JLabel lblID = new JLabel("ID");
 	 private JTextField txtID = new JTextField(20);
 	 private JLabel lblNaziv = new JLabel("Naziv");
@@ -31,13 +29,13 @@ public class DijalogDodajTip extends JDialog{
 	 private JButton btnSave = new JButton("Save");
 	 private JButton btnCancel = new JButton("Cancel");
 	 
-	 public DijalogDodajTip(Biblioteka biblioteka) {
+	 public DijalogIzmeniTip(Biblioteka biblioteka, TipClanarine tipClanarine) {
 		 this.biblioteka = biblioteka;
+		 this.tipClanarine = tipClanarine;
 		 setTitle("Dodavanje novi zanr");
 		 setSize(500,500);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 setLocationRelativeTo(null);
-//		 cmbxEmnumPol.setModel(new DefaultComboBoxModel<EmnumPol>(EmnumPol.values()));
 		 initGUI();
 		 initActions();
 	 }
@@ -46,8 +44,8 @@ public class DijalogDodajTip extends JDialog{
 		btnCancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DijalogDodajTip.this.dispose();
-				DijalogDodajTip.this.setVisible(false);
+				DijalogIzmeniTip.this.dispose();
+				DijalogIzmeniTip.this.setVisible(false);
 			}
 		});
 		
@@ -81,7 +79,7 @@ public class DijalogDodajTip extends JDialog{
 					}
 					try {
 						biblioteka.sacuvajTipClanarine();
-						DijalogDodajTip.this.setVisible(false);
+						DijalogIzmeniTip.this.setVisible(false);
 					}catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -96,12 +94,19 @@ public class DijalogDodajTip extends JDialog{
 		
 		add(lblID);
 		add(txtID);
+		txtID.setEditable(false);
 		add(lblNaziv);
 		add(txtNaziv);
 		add(lblCena);
 		add(txtCena);
 		add(btnSave);
 		add(btnCancel);
+		
+		if(tipClanarine != null) {
+			txtID.setText(tipClanarine.getId());
+			txtNaziv.setText(tipClanarine.getNaziv());
+			txtCena.setText(Double.toString(tipClanarine.getCena()));
+		}
 		
 	}
 }

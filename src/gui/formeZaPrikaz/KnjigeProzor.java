@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.formeZaDodavanje.DijalogDodajAdmine;
 import gui.formeZaDodavanje.DijalogDodajKnjige;
+import gui.formeZaIzmenu.DijalogIzmeniAdmina;
+import gui.formeZaIzmenu.DijalogIzmeniKnjigu;
 import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.Knjiga;
@@ -121,13 +123,28 @@ public class KnjigeProzor extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DijalogDodajKnjige da = new DijalogDodajKnjige(biblioteka,knjiga);
+				DijalogDodajKnjige da = new DijalogDodajKnjige(biblioteka);
 				da.setVisible(true);
 				KnjigeProzor.this.dispose();
 				KnjigeProzor.this.setVisible(false);
 			}
 		});
-
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int row = knjigeTabela.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null, "Morate da izaberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					String id = tableModel.getValueAt(row, 0).toString();
+					Knjiga knjiga = biblioteka.pronadjiKnjigu(id);
+					DijalogIzmeniKnjigu edit = new DijalogIzmeniKnjigu(biblioteka,knjiga);
+					edit.setVisible(true);
+				}
+			}
+		});
 		
 	}
 }

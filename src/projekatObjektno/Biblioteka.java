@@ -189,6 +189,24 @@ public class Biblioteka {
 		return null;
 	}
 	
+	public TipClanarine pronadjiTip(String id) {
+		for (TipClanarine tip : this.tipClanarine) {
+			if(tip.getId().equals(id)) {
+				return tip;
+			}
+		}
+		return null;
+	}
+	
+	public PrimerakKnjige pronadjiPrimerak(String id) {
+		for (PrimerakKnjige primerak : this.primerak) {
+			if(primerak.getId().equals(id)) {
+				return primerak;
+			}
+		}
+		return null;
+	}
+	
 	public Bibliotekar pronadjiBibliotekara(String id) {
 		for (Bibliotekar bibliotekar : this.bibliotekar) {
 			if(bibliotekar.getId().equals(id)) {

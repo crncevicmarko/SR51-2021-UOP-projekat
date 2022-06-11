@@ -17,6 +17,9 @@ import javax.swing.table.DefaultTableModel;
 
 import gui.formeZaDodavanje.DijalogDodajTip;
 import gui.formeZaDodavanje.DijalogDodajZanr;
+import gui.formeZaIzmenu.DijalogIzmeniAdmina;
+import gui.formeZaIzmenu.DijalogIzmeniTip;
+import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.ClanBiblioteke;
 //import projekatObjektno.ClanBiblioteke;
@@ -120,10 +123,28 @@ public class TipClanarineProzor extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DijalogDodajTip da = new DijalogDodajTip(biblioteka,tipClanarine);
+				DijalogDodajTip da = new DijalogDodajTip(biblioteka);
 				da.setVisible(true);
 				TipClanarineProzor.this.dispose();
 				TipClanarineProzor.this.setVisible(false);
+			}
+		});
+		
+		btnEdit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int row = tipclanarineTabela.getSelectedRow();
+				if(row == -1) {
+					JOptionPane.showMessageDialog(null, "Morate da izaberete red koji zelite da promenite","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					String id = tableModel.getValueAt(row, 0).toString();
+					TipClanarine tip = biblioteka.pronadjiTip(id);
+					System.out.println(tip);
+					DijalogIzmeniTip edit = new DijalogIzmeniTip(biblioteka,tip);
+					edit.setVisible(true);
+				}
 			}
 		});
 		

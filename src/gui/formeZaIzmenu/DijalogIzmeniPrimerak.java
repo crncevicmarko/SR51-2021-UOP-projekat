@@ -1,10 +1,9 @@
-package gui.formeZaDodavanje;
+package gui.formeZaIzmenu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -14,18 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import gui.formeZaDodavanje.DijalogDodajPrimerakKnjige;
 import net.miginfocom.swing.MigLayout;
 import projekatObjektno.Biblioteka;
-import projekatObjektno.EmnumPol;
 import projekatObjektno.Knjiga;
 import projekatObjektno.PrimerakKnjige;
-import projekatObjektno.TipClanarine;
-import projekatObjektno.ZanrKnjige;
-import projekatObjektno.Zaposleni;
 
-public class DijalogDodajPrimerakKnjige extends JDialog{
-//	String id, int brStrana, boolean tipPoveza, int godinaStampanja, boolean jeliIznajmljena,
-//	Knjiga knjiga,boolean jeObrisan
+public class DijalogIzmeniPrimerak extends JDialog{
 	 private Biblioteka biblioteka;
 	 private PrimerakKnjige primerak;
 	 
@@ -45,8 +39,9 @@ public class DijalogDodajPrimerakKnjige extends JDialog{
 	 private JButton btnSave = new JButton("Save");
 	 private JButton btnCancel = new JButton("Cancel");
 	 
-	 public DijalogDodajPrimerakKnjige(Biblioteka biblioteka) {
+	 public DijalogIzmeniPrimerak(Biblioteka biblioteka, PrimerakKnjige primerak) {
 		 this.biblioteka = biblioteka;
+		 this.primerak = primerak;
 		 setTitle("Dodavanje novi primerak");
 		 setSize(500,500);
 		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -61,13 +56,11 @@ public class DijalogDodajPrimerakKnjige extends JDialog{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DijalogDodajPrimerakKnjige.this.dispose();
-				DijalogDodajPrimerakKnjige.this.setVisible(false);
+				DijalogIzmeniPrimerak.this.dispose();
+				DijalogIzmeniPrimerak.this.setVisible(false);
 			}
 		});
 		btnSave.addActionListener(new ActionListener() {
-//			String id, int brStrana, boolean tipPoveza, int godinaStampanja, boolean jeliIznajmljena,
-//			Knjiga knjiga,boolean jeObrisan
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String id = txtID.getText().trim();
@@ -99,7 +92,7 @@ public class DijalogDodajPrimerakKnjige extends JDialog{
 				}
 				else {
 					if(primerak == null) {
-						PrimerakKnjige priSmerak = new PrimerakKnjige(id,brStrana1,tipPoveza,godinaStampanja1,isAktivan,knjiga,false);
+						PrimerakKnjige primerak = new PrimerakKnjige(id,brStrana1,tipPoveza,godinaStampanja1,isAktivan,knjiga,false);
 						biblioteka.getPrimerak().add(primerak);
 					}
 					else {
@@ -112,7 +105,7 @@ public class DijalogDodajPrimerakKnjige extends JDialog{
 					}
 					try {
 						biblioteka.sacuvajPrimerke();
-						DijalogDodajPrimerakKnjige.this.setVisible(false);
+						DijalogIzmeniPrimerak.this.setVisible(false);
 					}
 					catch (Exception e1) {
 						e1.printStackTrace();
@@ -123,16 +116,12 @@ public class DijalogDodajPrimerakKnjige extends JDialog{
 	}
 
 	private void initGUI() {
-		ArrayList<Knjiga> knjige = biblioteka.sveNeobrisaneKnjige();
-		for(Knjiga knjiga : knjige) {
-			cmbxKnjiga.addItem(knjiga.getNaslovKnjige());
-		}
-		
 		MigLayout mig = new MigLayout("wrap 2","[][]","[]10[]10[]");
 		setLayout(mig);
 		
 		add(lblID);
 		add(txtID);
+		txtID.setEditable(false);
 		add(lblBrStrana);
 		add(txtBrStrana);
 		add(lblTipPoveza);
@@ -143,13 +132,24 @@ public class DijalogDodajPrimerakKnjige extends JDialog{
 		add(txtjeliIznajmljena);
 		add(lblKnjiga);
 		add(cmbxKnjiga);
-		add(btnSave,"split 2");
+		add(new JLabel());
+//		add(btnSave,"split 2");
 		add(btnSave);
 		add(btnCancel);
 		
+		ArrayList<Knjiga> knjige = biblioteka.sveNeobrisaneKnjige();
+		for(Knjiga knjiga : knjige) {
+			cmbxKnjiga.addItem(knjiga.getNaslovKnjige());
+		}
 		
-		
+		if(primerak != null) {
+			txtID.setText(primerak.getId());
+			txtBrStrana.setText(Integer.toString(primerak.getBrStrana()));
+			txtTipPoveza.setSelected(primerak.isTipPoveza());
+			txtGodinaSt.setText(Integer.toString(primerak.getGodinaStampanja()));
+			txtjeliIznajmljena.setSelected(primerak.isJeliIznajmljena());
+			cmbxKnjiga.setSelectedItem(primerak.getKnjiga().getNaslovKnjige());
+			
+		}
 	}
-	
-	
 }
