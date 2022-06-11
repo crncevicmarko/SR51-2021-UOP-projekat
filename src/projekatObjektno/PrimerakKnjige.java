@@ -86,6 +86,15 @@ public class PrimerakKnjige {
 		
 	}
 	
+	public String generisiIDPrimerka() {
+		String idPrimerka = "P-";
+		for(int i=0;i<6;i++) {
+			int broj = (int)Math.floor(Math.random()*9);
+			idPrimerka += Integer.toString(broj);
+		}
+		return idPrimerka;
+	}
+	
 //	public ArrayList<PrimerakKnjige> citajFajl(String imeFajla) throws IOException{
 //		ArrayList<PrimerakKnjige> knjige = new ArrayList<PrimerakKnjige>();
 //		File fajl = new File(imeFajla);

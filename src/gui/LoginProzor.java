@@ -14,6 +14,7 @@ import net.miginfocom.swing.MigLayout;
 //import osobe.Prodavac;
 import projekatObjektno.Bibliotekar;
 import projekatObjektno.Zaposleni;
+import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
 //import prodavnica.Biblioteka;
 
@@ -28,11 +29,9 @@ public class LoginProzor extends JFrame{
 		private JButton btnCancel = new JButton("Cancel");
 		
 		private Biblioteka biblioteka;
-		private Zaposleni zaposleni;
 		
-		public LoginProzor(Biblioteka biblioteka,Zaposleni zaposleni) {
+		public LoginProzor(Biblioteka biblioteka) {
 			this.biblioteka = biblioteka;
-			this.zaposleni = zaposleni;
 			setTitle("Prijava");
 			setSize(350,250);
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -70,6 +69,30 @@ public class LoginProzor extends JFrame{
 				}
 			});
 			
+			
+//			btnOk.addActionListener(new ActionListener() {
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					String korisnikoIme = txtKorisnickoIme.getText().trim();
+//					String sifra = new String(pfPassword.getPassword()).trim();
+//					
+//					if(korisnikoIme.equals("") || sifra.equals("")) {
+//						JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za prijavu.", "Greska", JOptionPane.WARNING_MESSAGE);
+//					}else {
+//						Zaposleni prijavljeni = biblioteka.login(korisnikoIme, sifra);
+//						if(prijavljeni == null) {
+//							JOptionPane.showMessageDialog(null, "Pogresni login podaci.", "Greska", JOptionPane.WARNING_MESSAGE);
+//						}else {
+//							Login.this.dispose();
+//							Login.this.setVisible(false);
+//							boolean isAdmin=prijavljeni instanceof Admin;
+//							GlavniProzor gp = new GlavniProzor(biblioteka, prijavljeni,isAdmin);
+//							gp.setVisible(true);
+//						}
+//					}
+//				}
+//			});
+			
 			btnOk.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -79,17 +102,40 @@ public class LoginProzor extends JFrame{
 					if(korisnikoIme.equals("") || sifra.equals("")) {
 						JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za prijavu.", "Greska", JOptionPane.WARNING_MESSAGE);
 					}else {
-						Bibliotekar prijavljeni = biblioteka.login(korisnikoIme, sifra);
+						Zaposleni prijavljeni = biblioteka.login(korisnikoIme, sifra);
 						if(prijavljeni == null) {
 							JOptionPane.showMessageDialog(null, "Pogrešni login podaci.", "Greška", JOptionPane.WARNING_MESSAGE);
 						}else {
 							LoginProzor.this.dispose();
 							LoginProzor.this.setVisible(false);
-							GlavniProzor gp = new GlavniProzor(biblioteka, prijavljeni);
+							boolean jeliAdmin = prijavljeni instanceof Administrator;
+							GlavniProzor gp = new GlavniProzor(biblioteka, prijavljeni,jeliAdmin);
 							gp.setVisible(true);
 						}
 					}
 				}
 			});
+			
+//			btnOk.addActionListener(new ActionListener() {
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					String korisnikoIme = txtKorisnickoIme.getText().trim();
+//					String sifra = new String(pfPassword.getPassword()).trim();
+//					
+//					if(korisnikoIme.equals("") || sifra.equals("")) {
+//						JOptionPane.showMessageDialog(null, "Niste uneli sve podatke za prijavu.", "Greska", JOptionPane.WARNING_MESSAGE);
+//					}else {
+//						Bibliotekar prijavljeni = biblioteka.login(korisnikoIme, sifra);
+//						if(prijavljeni == null) {
+//							JOptionPane.showMessageDialog(null, "Pogrešni login podaci.", "Greška", JOptionPane.WARNING_MESSAGE);
+//						}else {
+//							LoginProzor.this.dispose();
+//							LoginProzor.this.setVisible(false);
+//							GlavniProzor gp = new GlavniProzor(biblioteka, prijavljeni);
+//							gp.setVisible(true);
+//						}
+//					}
+//				}
+//			});
 		}
 }

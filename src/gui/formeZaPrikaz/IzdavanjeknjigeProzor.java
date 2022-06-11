@@ -75,21 +75,20 @@ public class IzdavanjeknjigeProzor extends JFrame{
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		JTable clanoviTabela = new JTable(tableModel);
+		izdavanjeknjigaTabela = new JTable(tableModel);
 		
-		clanoviTabela.setRowSelectionAllowed(true);
-		clanoviTabela.setColumnSelectionAllowed(false);
-		clanoviTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		clanoviTabela.setDefaultEditor(Object.class, null);
-		clanoviTabela.getTableHeader().setReorderingAllowed(false);
+		izdavanjeknjigaTabela.setRowSelectionAllowed(true);
+		izdavanjeknjigaTabela.setColumnSelectionAllowed(false);
+		izdavanjeknjigaTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		izdavanjeknjigaTabela.setDefaultEditor(Object.class, null);
+		izdavanjeknjigaTabela.getTableHeader().setReorderingAllowed(false);
 		
-		JScrollPane scrollPane = new JScrollPane(clanoviTabela);
+		JScrollPane scrollPane = new JScrollPane(izdavanjeknjigaTabela);
 		add(scrollPane, BorderLayout.CENTER);
 
 	}
 
 	private void initActions() {
-		// TODO Auto-generated method stub
 		
 	}
 }

@@ -1,16 +1,23 @@
 package gui.formeZaPrikaz;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import gui.formeZaDodavanje.DijalogDodajAdmine;
+import gui.formeZaDodavanje.DijalogDodajBibliotekare;
+import projekatObjektno.Administrator;
 //import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.Bibliotekar;
@@ -28,6 +35,7 @@ public class BibliotekarProzor extends JFrame{
 	private JTable bibiliotekariTabela;
 	
 	private Biblioteka biblioteka;
+	private Bibliotekar bibliotekar;
 
 	public BibliotekarProzor (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
@@ -76,20 +84,57 @@ public class BibliotekarProzor extends JFrame{
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		JTable bibliotekariTabela = new JTable(tableModel);
+		bibiliotekariTabela = new JTable(tableModel);
 		
-		bibliotekariTabela.setRowSelectionAllowed(true);
-		bibliotekariTabela.setColumnSelectionAllowed(false);
-		bibliotekariTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		bibliotekariTabela.setDefaultEditor(Object.class, null);
-		bibliotekariTabela.getTableHeader().setReorderingAllowed(false);
+		bibiliotekariTabela.setRowSelectionAllowed(true);
+		bibiliotekariTabela.setColumnSelectionAllowed(false);
+		bibiliotekariTabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		bibiliotekariTabela.setDefaultEditor(Object.class, null);
+		bibiliotekariTabela.getTableHeader().setReorderingAllowed(false);
 		
-		JScrollPane scrollPane = new JScrollPane(bibliotekariTabela);
+		JScrollPane scrollPane = new JScrollPane(bibiliotekariTabela);
 		add(scrollPane, BorderLayout.CENTER);
 	}
 
 	private void initActions() {
-		// TODO Auto-generated method stub
+		btnDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = bibiliotekariTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					String naziv = tableModel.getValueAt(red, 1).toString();
+					
+					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
+					if(izbor == JOptionPane.YES_NO_OPTION) {
+						Bibliotekar c = biblioteka.getBibliotekar().get(id);
+						c.setJeObrisan(true);
+						System.out.println(biblioteka.getBibliotekar().toString());
+						try {
+							biblioteka.sacuvajBibliotekre();
+						}
+						catch(IOException e1) {
+							e1.printStackTrace();
+						}
+						tableModel.removeRow(red);
+					}
+				}
+			}
+		});
 		
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DijalogDodajBibliotekare da = new DijalogDodajBibliotekare(biblioteka, bibliotekar);
+				da.setVisible(true);
+				BibliotekarProzor.this.dispose();
+				BibliotekarProzor.this.setVisible(false);
+			}
+		});
 	}
 }

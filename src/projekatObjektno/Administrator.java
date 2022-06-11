@@ -6,27 +6,42 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Administrator extends Zaposleni {
 
+public class Administrator extends Zaposleni {
+//	protected ArrayList<Administrator> admin;
+//	protected Biblioteka biblioteka;
+	
+//	public Administrator() {
+//		super();
+//	}
+//
+//	public Administrator(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
+//			String korisnickaSifra, String korisnickoIme,String plata,boolean jeObrisan) {
+//		super(id, ime, prezime, jMBG, adresa, pol, korisnickaSifra,korisnickoIme, plata,jeObrisan);
+//	}
+	
 	public Administrator() {
 		super();
 	}
 
 	public Administrator(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
-			String korisnickaSifra, String korisnickoIme,double plata,boolean jeObrisan) {
-		super(id, ime, prezime, jMBG, adresa, pol, korisnickaSifra, korisnickoIme,plata,jeObrisan);
+			String korisnickaSifra, String korisnickoIme, String plata, boolean jeObrisan) {
+		super(id, ime, prezime, jMBG, adresa, pol, korisnickaSifra, korisnickoIme, plata, jeObrisan);
 	}
+	
 
 	@Override
 	public String toString() {
 		return  id+ ";" + ime + ";" + prezime + ";" + JMBG + ";" + adresa + ";" + pol+ ";" + korisnickaSifra + ";" + korisnickoIme + ";"+ plata+";"+jeObrisan;
 	}
 	
-	public void DodatiNoveZaposlene() {
-		
-	}
+	
+//	String adresa, String id, String naziv, String telefon, LocalDate otvaranje, LocalDate zatvaranje
+	
+	
 	
 //	public ArrayList<Administrator> citajAdministratora(String imeFajla) throws IOException{
 //		ArrayList<Administrator> administartor = new ArrayList<Administrator>();
@@ -68,6 +83,6 @@ public class Administrator extends Zaposleni {
 //		
 //	}
 	
-	
-
 }
+
+

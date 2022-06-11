@@ -57,6 +57,15 @@ public class ZanrKnjige {
 	public String toString() {
 		return id + ";"+oznaka + ";" + opis + ";" + jeObrisan;
 	}
+	
+	public String generisiIDZanrKnjige() {
+		String id = "Z-";
+		for(int i=0;i<6;i++) {
+			int broj = (int)Math.floor(Math.random()*9);
+			id += Integer.toString(broj);
+		}
+		return id;
+	}
 
 	
 //	public ArrayList<ZanrKnjige> citajFajl(String imeFajla) throws IOException{

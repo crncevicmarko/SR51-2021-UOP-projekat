@@ -1,17 +1,24 @@
 package gui.formeZaPrikaz;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+
+import gui.formeZaDodavanje.DijalogDodajAdmine;
 import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
+import projekatObjektno.ClanBiblioteke;
 import projekatObjektno.Zaposleni;
 //import projekatObjektno.ClanBiblioteke;
 //import projekatObjektno.EmnumPol;
@@ -27,6 +34,7 @@ public class AdministratorProzor extends JFrame{
 	private JTable administratoriTabela;
 	
 	private Biblioteka biblioteka;
+	private Administrator admin;
 
 	public AdministratorProzor (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
@@ -73,8 +81,9 @@ public class AdministratorProzor extends JFrame{
 //			sadrzaj[i][2] = disk == null ? "--" : disk.getNaziv();
 		}
 		
+		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		JTable administratoriTabela = new JTable(tableModel);
+		administratoriTabela = new JTable(tableModel);
 		
 		administratoriTabela.setRowSelectionAllowed(true);
 		administratoriTabela.setColumnSelectionAllowed(false);
@@ -84,10 +93,48 @@ public class AdministratorProzor extends JFrame{
 		
 		JScrollPane scrollPane = new JScrollPane(administratoriTabela);
 		add(scrollPane, BorderLayout.CENTER);
-		
+
 	}
 	private void initActions() {
-		
+		btnDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = administratoriTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					String naziv = tableModel.getValueAt(red, 1).toString();
+					
+					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
+					if(izbor == JOptionPane.YES_NO_OPTION) {
+						Administrator c = biblioteka.getAdmin().get(id);
+						c.setJeObrisan(true);
+						System.out.println(biblioteka.getAdmin().toString());
+						try {
+							biblioteka.sacuvajAdministatore();
+						}
+						catch(IOException e1) {
+							e1.printStackTrace();
+						}
+						tableModel.removeRow(red);
+					}
+				}
+				
+			}
+		});
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DijalogDodajAdmine da = new DijalogDodajAdmine(biblioteka, admin);
+				da.setVisible(true);
+				AdministratorProzor.this.dispose();
+				AdministratorProzor.this.setVisible(false);
+			}
+		});
 		
 	}
 	

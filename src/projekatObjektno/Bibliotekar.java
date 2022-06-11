@@ -10,13 +10,24 @@ import java.util.ArrayList;
 
 public class Bibliotekar extends Zaposleni {
 
+//	public Bibliotekar() {
+//		super();
+//	}
+//	public Bibliotekar(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
+//			String korisnickaSifra, String korisnickoIme,double plata,boolean jeObrisan) {
+//		super(id, ime, prezime, jMBG, adresa, pol, korisnickaSifra, korisnickoIme,plata,jeObrisan);
+//	}
+	
 	public Bibliotekar() {
 		super();
 	}
+
+
 	public Bibliotekar(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,
-			String korisnickaSifra, String korisnickoIme,double plata,boolean jeObrisan) {
-		super(id, ime, prezime, jMBG, adresa, pol, korisnickaSifra, korisnickoIme,plata,jeObrisan);
+			String korisnickaSifra, String korisnickoIme, String plata, boolean jeObrisan) {
+		super(id, ime, prezime, jMBG, adresa, pol, korisnickaSifra, korisnickoIme, plata, jeObrisan);
 	}
+
 	
 //	public ArrayList<Bibliotekar> citajBibliotekara(String imeFajla) throws IOException{
 //		ArrayList<Bibliotekar> bibliotekar = new ArrayList<Bibliotekar>();
@@ -62,7 +73,16 @@ public class Bibliotekar extends Zaposleni {
 	public String toString() {
 		return  id+ ";" + ime + ";" + prezime + ";" + JMBG + ";" + adresa + ";" + pol+ ";" + korisnickaSifra + ";" + korisnickoIme + ";" + plata+";"+jeObrisan ;
 	}
-	
+
+
+	public String generisiIDBibliotekara() {
+		String idBibliotekara = "B-";
+		for(int i=0;i<6;i++) {
+			int broj = (int)Math.floor(Math.random()*9);
+			idBibliotekara += Integer.toString(broj);
+		}
+		return idBibliotekara;
+	}
 	}
 	
 

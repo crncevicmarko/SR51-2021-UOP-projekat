@@ -45,10 +45,12 @@ public class GlavniProzor extends JFrame{
 	
 	private Biblioteka biblioteka;
 	private Zaposleni prijavljeniKorisnik;
+	private boolean jeliAdmin;
 	
-	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik) {
+	public GlavniProzor(Biblioteka biblioteka, Zaposleni prijavljeniKorisnik,boolean jeliAdmin) {
 		this.biblioteka = biblioteka;
 		this.prijavljeniKorisnik = prijavljeniKorisnik;
+		this.jeliAdmin = jeliAdmin;
 		setTitle("Zaposleni: " + prijavljeniKorisnik.getKorisnickoIme());
 		setSize(500, 500);
 		setResizable(false);
@@ -57,6 +59,20 @@ public class GlavniProzor extends JFrame{
 		initMenu();
 		initActions();
 	}
+	
+//	private void initMenu() {
+//		setJMenuBar(mainMenu);
+//		mainMenu.add(PrimerciItem);
+//		mainMenu.add(KnjigeItem);
+//		mainMenu.add(ClanoviItem);
+//		mainMenu.add(ZanrItem);
+//		mainMenu.add(TipClanarineItem);
+//
+//		if(isAdmin) {
+//			mainMenu.add(AdministratoriItem);
+//			mainMenu.add(BibliotekariItem);
+//		}	
+//		}
 	
 	private void initMenu() {
 		setJMenuBar(mainMenu);
@@ -68,9 +84,11 @@ public class GlavniProzor extends JFrame{
 		sveKnjigeMenu.add(zanrKnjigeItem);
 		sveKnjigeMenu.add(izdavanjeKnjigeItem);
 		artikliMenu.add(tipClanarinejeItem);
-		mainMenu.add(prodavciMenu);
-		prodavciMenu.add(bibliotekarItem);
-		prodavciMenu.add(administratorItem);
+		if(jeliAdmin) {
+			mainMenu.add(prodavciMenu);
+			prodavciMenu.add(bibliotekarItem);
+			prodavciMenu.add(administratorItem);
+		}
 	}
 	
 	private void initActions() {

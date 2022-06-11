@@ -128,6 +128,14 @@ public class ClanBiblioteke extends Osoba{
 		return id+";"+ime+";"+prezime+";"+JMBG+";"+adresa+";"+pol+";"+brClankarte+";"+datumPoslednjeUplate+";"+ brojMeseciClanarine+";"+aktivan+";"+tipClanarine+";"+jeObrisan;
 	}
 	
+	public String generisiIDClana() {
+		String idClana = "C-";
+		for(int i=0;i<6;i++) {
+			int broj = (int)Math.floor(Math.random()*9);
+			idClana += Integer.toString(broj);
+		}
+		return idClana;
+	}
 
 
 	

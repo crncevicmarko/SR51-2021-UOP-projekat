@@ -106,6 +106,15 @@ public class Knjiga {
 	public String toString() {
 		return id + ";" + naslovKnjige + ";"+ originalsniNaslovKnjige + ";" + pisac + ";" + godinaObjavljanjaKnjige+ ";" + jezikOriginala + ";" + opisKnjige+";"+ zanr.getId();
 	}
+	
+	public String generisiIDKnjiga() {
+		String idKnjige = "K-";
+		for(int i=0;i<6;i++) {
+			int broj = (int)Math.floor(Math.random()*9);
+			idKnjige += Integer.toString(broj);
+		}
+		return idKnjige;
+	}
     
 //	public ArrayList<Knjiga> citajFajl(String imeFajla) throws IOException{
 //		ArrayList<Knjiga> knjige = new ArrayList<Knjiga>();

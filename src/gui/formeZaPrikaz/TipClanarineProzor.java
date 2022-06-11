@@ -1,17 +1,24 @@
 package gui.formeZaPrikaz;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import gui.formeZaDodavanje.DijalogDodajTip;
+import gui.formeZaDodavanje.DijalogDodajZanr;
 import projekatObjektno.Biblioteka;
+import projekatObjektno.ClanBiblioteke;
 //import projekatObjektno.ClanBiblioteke;
 import projekatObjektno.TipClanarine;
 import projekatObjektno.Zaposleni;
@@ -26,6 +33,7 @@ public class TipClanarineProzor extends JFrame{
 	private JTable tipclanarineTabela;
 	
 	private Biblioteka biblioteka;
+	private TipClanarine tipClanarine;
 
 	public TipClanarineProzor (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
@@ -60,12 +68,12 @@ public class TipClanarineProzor extends JFrame{
 //			Knjiga knjiga = biblioteka.pronadjiDisk(clan);
 			sadrzaj[i][0] = clan.getId();
 			sadrzaj[i][1] = clan.getNaziv();
-			sadrzaj[i][2] = clan.getNaziv();
+			sadrzaj[i][2] = clan.getCena();
 //			sadrzaj[i][2] = disk == null ? "--" : disk.getNaziv();
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		JTable tipclanarineTabela = new JTable(tableModel);
+		tipclanarineTabela = new JTable(tableModel);
 		
 		tipclanarineTabela.setRowSelectionAllowed(true);
 		tipclanarineTabela.setColumnSelectionAllowed(false);
@@ -79,7 +87,45 @@ public class TipClanarineProzor extends JFrame{
 	}
 
 	private void initActions() {
-		// TODO Auto-generated method stub
+		btnDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = tipclanarineTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					String naziv = tableModel.getValueAt(red, 1).toString();
+					
+					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
+					if(izbor == JOptionPane.YES_NO_OPTION) {
+						TipClanarine c = biblioteka.getTipClanarine().get(id);
+						c.setJeObrisan(true);
+						System.out.println(biblioteka.getTipClanarine().toString());
+						try {
+							biblioteka.sacuvajTipClanarine();
+						}
+						catch(IOException e1) {
+							e1.printStackTrace();
+						}
+						tableModel.removeRow(red);
+					}
+				}
+			}
+		});
+		
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DijalogDodajTip da = new DijalogDodajTip(biblioteka,tipClanarine);
+				da.setVisible(true);
+				TipClanarineProzor.this.dispose();
+				TipClanarineProzor.this.setVisible(false);
+			}
+		});
 		
 	}
 }

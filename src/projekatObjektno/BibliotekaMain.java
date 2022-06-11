@@ -7,23 +7,26 @@ import java.util.HashMap;
 import gui.LoginProzor;
 
 public class BibliotekaMain {
-
+	public static String PATH_TO_CLANOVI = "src/projekatObjektno/clanbiblioteke.txt";
+	
 	public static void main(String[] args) throws IOException{
 		Biblioteka biblioteka = new Biblioteka("Milana Josifovica","1","Biblioteka Dositej Obradovic","065748574958",LocalDate.parse("2007-02-03"),LocalDate.parse("2008-05-05"));
 //		biblioteka.upisiFajl(biblioteka);
 //		biblioteka.upisiFajl(biblioteka);
-		Bibliotekar bibliotekar = new Bibliotekar("1","Pera","Peric","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"ZikaCAr123","ZikaZ",1121,false);
+//		Bibliotekar bibliotekar = new Bibliotekar("1","Pera","Peric","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"ZikaCAr123","ZikaZ",1121,false);
+		Bibliotekar bibliotekar = new Bibliotekar("1","Pera","Peric","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"ZikaCAr123","ZikaZ","1121",false);
+//		biblioteka.upisBibliotekara(bibliotekar);
 		biblioteka.bibliotekar.add(bibliotekar);
-		biblioteka.upisiFajlBibliotekar(biblioteka.bibliotekar);
+//		biblioteka.upisiFajlBibliotekar(biblioteka.bibliotekar);
 		biblioteka.citajBibliotekara();
 		biblioteka.citajAdministratora();
 		biblioteka.citajClanarine();
 		biblioteka.citajZanroveIzFajla();
-		biblioteka.citajClanove();
+		biblioteka.citajClanove(PATH_TO_CLANOVI);
 		biblioteka.citajKnjige();
 		biblioteka.citajPrimerke();
 		biblioteka.citajIzdavanjeKnjige();		
-		LoginProzor lp = new LoginProzor(biblioteka, bibliotekar);
+		LoginProzor lp = new LoginProzor(biblioteka);
 		lp.setVisible(true);
 //		biblioteka.citajZanroveIzFajla();
 //		biblioteka.citajKnjige();
@@ -76,7 +79,7 @@ public class BibliotekaMain {
 //////		System.out.println(biblioteka.citajFajl("src/projekatObjektno/knjige.txt"));
 		TipClanarine tip = new TipClanarine("1","Knjiga1",500.0,false);
 		biblioteka.tipClanarine.add(tip);
-		biblioteka.upisiTipClanarine(biblioteka.tipClanarine);
+//		biblioteka.upisiTipClanarine(biblioteka.tipClanarine);
 //////		biblioteka.upisiTipClanarine(tip);
 //		ClanBiblioteke clan = new ClanBiblioteke("1","Mika","Mikic","8658568568568","ZikeZikica",EmnumPol.ZENSKI,"vyvbi",LocalDate.parse("2009-02-03"),6,true,tip,false);
 //////		biblioteka.upisiFajlClanBiblioteke(clan);

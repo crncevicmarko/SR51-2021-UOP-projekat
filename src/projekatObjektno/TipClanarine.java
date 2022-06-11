@@ -59,6 +59,16 @@ public class TipClanarine {
 		return id + ";" + naziv + ";" + cena+";"+jeObrisan;
 	}
 	
+	public String generisiIDTipClanarine() {
+		String id = "T-";
+		for(int i=0;i<6;i++) {
+			int broj = (int)Math.floor(Math.random()*9);
+			id += Integer.toString(broj);
+		}
+		return id;
+	}
+
+	
 	
 //	public static ArrayList<TipClanarine>  citajClanarine(String fajlClanovi) throws IOException{
 //		ArrayList<TipClanarine> tipClanarine = new ArrayList<TipClanarine>();

@@ -1,1 +1,3 @@
-1;Pera;Peric;8658568568568;ZikeZikica;ZENSKI;ZikaCAr123;ZikaZ;1121.0;false
+0;Pera;Peric;8658568568568;ZikeZikica;ZENSKI;ZikaCAr123;ZikaZ;1121;false
+1;Pera;Peric;8658568568568;ZikeZikica;ZENSKI;ZikaCAr123;ZikaM;1121;false
+2;Pera;Peric;8658568568568;ZikaZikic;ZENSKI;Zikacar123;ZikaCar;1234;false

@@ -1,15 +1,22 @@
 package gui.formeZaPrikaz;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import gui.formeZaDodavanje.DijalogDodajAdmine;
+import gui.formeZaDodavanje.DijalogDodajKnjige;
+import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.Knjiga;
 import projekatObjektno.Zaposleni;
@@ -25,6 +32,7 @@ public class KnjigeProzor extends JFrame{
 	private JTable knjigeTabela;
 	
 	private Biblioteka biblioteka;
+	private Knjiga knjiga;
 
 	public KnjigeProzor (Biblioteka biblioteka,Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
@@ -67,7 +75,7 @@ public class KnjigeProzor extends JFrame{
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		JTable knjigeTabela = new JTable(tableModel);
+		knjigeTabela = new JTable(tableModel);
 		
 		knjigeTabela.setRowSelectionAllowed(true);
 		knjigeTabela.setColumnSelectionAllowed(false);
@@ -77,12 +85,49 @@ public class KnjigeProzor extends JFrame{
 		
 		JScrollPane scrollPane = new JScrollPane(knjigeTabela);
 		add(scrollPane, BorderLayout.CENTER);
-		
-		
 	}
 
 	private void initActions() {
-		// TODO Auto-generated method stub
+		btnDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = knjigeTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					String naziv = tableModel.getValueAt(red, 1).toString();
+					
+					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
+					if(izbor == JOptionPane.YES_NO_OPTION) {
+						Knjiga c = biblioteka.getKnjige().get(id);
+						c.setJeObrisana(true);
+						System.out.println(biblioteka.getKnjige().toString());
+						try {
+							biblioteka.sacuvajKnjige();
+						}
+						catch(IOException e1) {
+							e1.printStackTrace();
+						}
+						tableModel.removeRow(red);
+					}
+				}
+				
+			}
+		});
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DijalogDodajKnjige da = new DijalogDodajKnjige(biblioteka,knjiga);
+				da.setVisible(true);
+				KnjigeProzor.this.dispose();
+				KnjigeProzor.this.setVisible(false);
+			}
+		});
+
 		
 	}
 }

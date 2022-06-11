@@ -1,17 +1,25 @@
 package gui.formeZaPrikaz;
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import gui.formeZaDodavanje.DijalogDodajAdmine;
+import gui.formeZaDodavanje.DijalogDodajPrimerakKnjige;
 import projekatObjektno.Biblioteka;
+import projekatObjektno.ClanBiblioteke;
 import projekatObjektno.PrimerakKnjige;
 import projekatObjektno.Zaposleni;
 
@@ -27,6 +35,7 @@ public class PrimerakKnjigeProzor extends JFrame {
 	private JTable primerciKnjigaTabela;
 	
 	private Biblioteka biblioteka;
+	private PrimerakKnjige primerak;
 
 	public PrimerakKnjigeProzor (Biblioteka biblioteka, Zaposleni zaposleni) {
 		this.biblioteka = biblioteka;
@@ -57,18 +66,16 @@ public class PrimerakKnjigeProzor extends JFrame {
 		
 		for(int i=0; i<biblioteka.sviNeobrisaniPrimerciKnjige().size(); i++) {
 			PrimerakKnjige primerak = biblioteka.sviNeobrisaniPrimerciKnjige().get(i);
-//			Knjiga knjiga = biblioteka.pronadjiDisk(zanr);
 			sadrzaj[i][0] = primerak.getId();
 			sadrzaj[i][1] = primerak.getBrStrana();
 			sadrzaj[i][2] = primerak.isTipPoveza();
 			sadrzaj[i][3] = primerak.getGodinaStampanja();
 			sadrzaj[i][4] = primerak.isJeliIznajmljena();
-			sadrzaj[i][5] = primerak.getKnjiga().getId();
-//			sadrzaj[i][2] = disk == null ? "--" : disk.getNaziv();
+			sadrzaj[i][5] = primerak.getKnjiga()/*.getId()*/;
 		}
 		
 		tableModel = new DefaultTableModel(sadrzaj, zaglavlja);
-		JTable primerciKnjigaTabela = new JTable(tableModel);
+		primerciKnjigaTabela = new JTable(tableModel);
 		
 		primerciKnjigaTabela.setRowSelectionAllowed(true);
 		primerciKnjigaTabela.setColumnSelectionAllowed(false);
@@ -82,7 +89,45 @@ public class PrimerakKnjigeProzor extends JFrame {
 	}
 
 	private void initActions() {
-		// TODO Auto-generated method stub
+		btnDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int red = primerciKnjigaTabela.getSelectedRow();
+				if(red == -1) {
+					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
+				}
+				else {
+					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+					String naziv = tableModel.getValueAt(red, 1).toString();
+					
+					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
+					if(izbor == JOptionPane.YES_NO_OPTION) {
+						PrimerakKnjige c = biblioteka.getPrimerak().get(id);
+						c.setJeObrisan(true);
+						System.out.println(biblioteka.getPrimerak().toString());
+						try {
+							biblioteka.sacuvajPrimerke();
+						}
+						catch(IOException e1) {
+							e1.printStackTrace();
+						}
+						tableModel.removeRow(red);
+					}
+				}
+				
+			}
+		});
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DijalogDodajPrimerakKnjige da = new DijalogDodajPrimerakKnjige(biblioteka, primerak);
+				da.setVisible(true);
+				PrimerakKnjigeProzor.this.dispose();
+				PrimerakKnjigeProzor.this.setVisible(false);
+			}
+		});
 		
 	}
 }
