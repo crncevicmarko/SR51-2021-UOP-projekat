@@ -99,12 +99,13 @@ public class KnjigeProzor extends JFrame{
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
 				}
 				else {
-					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
+//					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
 					String naziv = tableModel.getValueAt(red, 1).toString();
+					Knjiga k = biblioteka.pronadjiKnjigu(naziv);
 					
 					int izbor = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da zelite da obrisete clana?",naziv + "- Potvrda brisanja",JOptionPane.YES_NO_OPTION);
 					if(izbor == JOptionPane.YES_NO_OPTION) {
-						Knjiga c = biblioteka.getKnjige().get(id);
+						Knjiga c = biblioteka.getKnjige().get(red);
 						c.setJeObrisana(true);
 						System.out.println(biblioteka.getKnjige().toString());
 						try {

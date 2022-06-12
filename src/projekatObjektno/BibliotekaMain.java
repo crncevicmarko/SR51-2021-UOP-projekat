@@ -35,12 +35,12 @@ public class BibliotekaMain {
 ////		} catch (IOException e) {
 ////			e.printStackTrace();
 ////		}
-		ZanrKnjige zanr = new ZanrKnjige("novi id","hthtrh","rghtrhb",false);
+//		ZanrKnjige zanr = new ZanrKnjige("novi id","hthtrh","rghtrhb",false);
 ////		System.out.println(biblioteka.zanrovi);
-		Knjiga knjiga = new Knjiga("knjigaid","p","z","n",1,Jezik.ENGLESKI,"m",zanr,false);
-		ArrayList<Knjiga> listaKnjiga = new ArrayList<Knjiga>();
-		listaKnjiga.add(knjiga);
-		biblioteka.upisiFajl(listaKnjiga);
+//		Knjiga knjiga = new Knjiga("knjigaid","p","z","n",1,Jezik.ENGLESKI,"m",zanr,false);
+//		ArrayList<Knjiga> listaKnjiga = new ArrayList<Knjiga>();
+//		listaKnjiga.add(knjiga);
+//		biblioteka.upisiFajl(listaKnjiga);
 ////		Knjiga knjiga1 = new Knjiga("2","g","jg","n",1,Jezik.ENGLESKI,"m",zanr,false);
 ////		Knjiga knjiga1 = new Knjiga("2","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));
 ////		Knjiga knjiga2 = new Knjiga("3","p","z","n",1,Jezik.ENGLESKI,"m",biblioteka.zanrovi.get(0));

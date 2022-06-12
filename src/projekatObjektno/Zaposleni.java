@@ -13,8 +13,6 @@ public abstract class Zaposleni extends Osoba{
 		this.korisnickoIme = "";
 		this.plata = "";
 		this.jeObrisan = false;
-		
-		
 	}
 	public Zaposleni(String id, String ime, String prezime, String jMBG, String adresa, EmnumPol pol,String korisnickaSifra,String korisnickoIme,String plata,boolean jeObrisan) {
 		super(id, ime, prezime, jMBG, adresa, pol);
