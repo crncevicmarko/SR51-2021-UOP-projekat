@@ -21,6 +21,7 @@ import gui.formeZaIzmenu.DijalogIzmeniKnjigu;
 import projekatObjektno.Administrator;
 import projekatObjektno.Biblioteka;
 import projekatObjektno.Knjiga;
+import projekatObjektno.PrimerakKnjige;
 import projekatObjektno.Zaposleni;
 
 public class KnjigeProzor extends JFrame{
@@ -94,11 +95,18 @@ public class KnjigeProzor extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Knjiga knjiga = biblioteka.sveNeobrisaneKnjige().get(knjigeTabela.getSelectedRow());
+				for(PrimerakKnjige p: biblioteka.sviNeobrisaniPrimerciKnjige()) {
+					if(p.getKnjiga().getId().equals(knjiga.getId())) {
+						JOptionPane.showMessageDialog(null, "Knjiga ne moze da bude obrisana");
+						return;
+					}
+				}
 				int red = knjigeTabela.getSelectedRow();
 				if(red == -1) {
 					JOptionPane.showMessageDialog(null, "Morate odabrati red u tabeli.","Greska",JOptionPane.WARNING_MESSAGE);
 				}
-				else {
+				 else {
 //					int id = Integer.parseInt(tableModel.getValueAt(red, 0).toString());
 					String naziv = tableModel.getValueAt(red, 1).toString();
 					Knjiga k = biblioteka.pronadjiKnjigu(naziv);

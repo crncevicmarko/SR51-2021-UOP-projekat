@@ -148,7 +148,6 @@ public class DijalogIzmeniAdmina extends JDialog{
 						e1.printStackTrace();
 					}
 				}
-//			}
 		});
 		
 	}
