@@ -66,7 +66,7 @@ public class PrimerakKnjigeProzor extends JFrame {
 		
 		String[] zaglavlja = new String[] {"Id", "Br.Strana", "TipPoveza", "GodinaStampanja", "Iznajmljena","Knjiga"};
 		Object[][] sadrzaj = new Object[biblioteka.sviNeobrisaniPrimerciKnjige().size()][zaglavlja.length];
-		System.out.println(biblioteka.sviNeobrisaniPrimerciKnjige());
+//		System.out.println(biblioteka.sviNeobrisaniPrimerciKnjige());
 		for(int i=0; i<biblioteka.sviNeobrisaniPrimerciKnjige().size(); i++) {
 			PrimerakKnjige primerak = biblioteka.sviNeobrisaniPrimerciKnjige().get(i);
 			sadrzaj[i][0] = primerak.getId();

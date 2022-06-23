@@ -180,6 +180,15 @@ public class Biblioteka {
 		return null;
 	}
 	
+	public IzdavanjeKnjige pronadjiIzdavanje(String id) {
+		for (IzdavanjeKnjige izdavanj : this.izdavanjeKnjige) {
+			if(izdavanj.getId().equals(id)) {
+				return izdavanj;
+			}
+		}
+		return null;
+	}
+	
 	public ClanBiblioteke pronadjiClana(String id) {
 		for (ClanBiblioteke clan : this.clanbiblioteke) {
 			if(clan.getId().equals(id)) {
@@ -320,8 +329,8 @@ public class Biblioteka {
         File file=new File("src/projekatObjektno/izdavanjeKnjige.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         for(IzdavanjeKnjige c: this.izdavanjeKnjige) {
-            String linija = c.getDatumIznajmljivanja() + ";" +c.getDatumVracanja() + ";" +c.getZaposleni().getId() + ";" +
-                    c.getClan().getId()+ ";"+c.isJeObrisan();
+            String linija = c.getId()+"|"+c.getDatumIznajmljivanja() + "|" +c.getDatumVracanja() + "|" +c.getZaposleni().getId() + "|" +
+                    c.getClan().getId()+"|"+c.getPrimerak().getId()+ "|"+c.isJeObrisan();
             writer.write(linija);
             writer.newLine();
         }
@@ -1162,44 +1171,52 @@ public class Biblioteka {
 		String line = null;
 		while((line = citaj.readLine())!= null) {
 			String [] niz = line.split("\\|");
-			LocalDate datumIznajmljivanja = LocalDate.parse(niz[0]);
-			LocalDate datumVracanja = LocalDate.parse(niz[1]);
+			String id = niz[0];
+			LocalDate datumIznajmljivanja = LocalDate.parse(niz[1]);
+			LocalDate datumVracanja = LocalDate.parse(niz[2]);
 //			ArrayList<ClanBiblioteke> clanovi = citajClanove("src/projekatObjektno/clanbiblioteke.txt");
 			ClanBiblioteke clan1 = null;
 			for (ClanBiblioteke t : this.clanbiblioteke) {
-				if(t.getId().equals(niz[3])) {
+				if(t.getId().equals(niz[4])) {
 					clan1 = t;
 				}
 			}
 //			ArrayList<Bibliotekar> bibliotekari = citajBibliotekara("src/projekatObjektno/bibliotekar.txt");
 			Zaposleni zaposleni = null;
 			for (Bibliotekar t : this.bibliotekar) {
-				if(t.getId().equals(niz[2])) {
+				if(t.getId().equals(niz[3])) {
 					zaposleni = t;
 				}
 			}
 			if(zaposleni == null) { /*ako nje nasao bibliotekara provera da li ima administrator sa id*/
 //				ArrayList<Administrator> administartor = citajAdministratora("src/projekatObjektno/administrator.txt");
 				for (Administrator t : this.admin) {
-					if(t.getId().equals(niz[2])) {
+					if(t.getId().equals(niz[3])) {
 						zaposleni = t;
 					}
 				}
 			}
 //			ArrayList<PrimerakKnjige> primerciKnjige = citajPrimerke("src/projekatObjektno/primerakKnjige.txt");
-			ArrayList<PrimerakKnjige> primerci = new ArrayList<PrimerakKnjige>();
-			String[] listaPrimeraka = niz[4].split("\\|");
-			System.out.println(listaPrimeraka.length);
-			for(String s: listaPrimeraka) {
-//				PrimerakKnjige primerKnjige = null;
-				for (PrimerakKnjige t : this.primerak) {
-					if(t.getId().equals(s)) {
-						primerci.add(t);
-					}
-				}
+//			ArrayList<PrimerakKnjige> primerci = new ArrayList<PrimerakKnjige>();
+//			String[] listaPrimeraka = niz[4].split("\\|");
+//			System.out.println(listaPrimeraka.length);
+//			for(String s: listaPrimeraka) {
+////				PrimerakKnjige primerKnjige = null;
+//				for (PrimerakKnjige t : this.primerak) {
+//					if(t.getId().equals(s)) {
+//						primerci.add(t);
+//					}
+//				}
+//			}
+			PrimerakKnjige primerak1 = null;
+			for (PrimerakKnjige p: this.primerak) {
+				if(p.getId().equals(niz[5])) {
+					primerak1 = p;
 			}
+			}
+			
 			Boolean jeObrisan = Boolean.parseBoolean(niz[5]);
-			IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(datumIznajmljivanja,datumVracanja,zaposleni,clan1,primerci,jeObrisan);
+			IzdavanjeKnjige izdavanje = new IzdavanjeKnjige(id,datumIznajmljivanja,datumVracanja,zaposleni,clan1,/*primerci*/primerak1,jeObrisan);
 			this.izdavanjeKnjige.add(izdavanje);
 		}
 		citaj.close();
@@ -1212,11 +1229,12 @@ public class Biblioteka {
 		File file = new File("src/projekatObjektno/izdavanjeKnjige.txt");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		for(IzdavanjeKnjige t:izdavanjaKnjige) {
-			String primerci = "";
-			for(PrimerakKnjige p: t.getPrimerak()) {
-				primerci += p.getId()+"|";
-			}
-			String sb = t.getDatumIznajmljivanja()+ "|"+ t.getDatumVracanja()+ "|"+t.getZaposleni().getId()+ "|"+ t.getClan().getId()+ "|"+ primerci + "|" + t.isJeObrisan();
+//			String primerci = "";
+//			for(PrimerakKnjige p: t.getPrimerak()) {
+//				primerci += p.getId()+"|";
+//			}
+		
+			String sb = t.getDatumIznajmljivanja()+ "|"+ t.getDatumVracanja()+ "|"+t.getZaposleni().getId()+ "|"+ t.getClan().getId()+ "|"+ /*primerci*/t.getPrimerak().getId() + "|" + t.isJeObrisan();
 			writer.write(sb);
 			writer.newLine();;
  		}
