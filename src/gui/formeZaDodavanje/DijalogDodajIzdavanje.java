@@ -132,7 +132,35 @@ public class DijalogDodajIzdavanje extends JDialog{
 
 
 	private void initGUI() {
-
+//		ArrayList<Zaposleni> zaposleni=biblioteka.getZaoposleni();
+//		for(Zaposleni zap : zaposleni) {
+//			cmbxZaposleni.addItem(zap.getId());
+//		}
+		ArrayList<ClanBiblioteke> clan=biblioteka.getClanbiblioteke();
+		for(ClanBiblioteke c : clan) {
+			cmbxClan.addItem(c.getIme());
+		}
+		ArrayList<PrimerakKnjige> primerak=biblioteka.getPrimerak();
+		for(PrimerakKnjige pri : primerak) {
+			cmbxPrimerak.addItem(pri.getId());
+		}
+		MigLayout mig = new MigLayout("wrap 2","[][]","[]10[]10[]");
+		setLayout(mig);
+		
+		add(lblID);
+		add(txtID);
+		add(lbldatumIznajmljivanja);
+		add(txtdatumIznajmljivanja);
+		add(lbldatumVracanja);
+		add(txtdatumVracanja);
+		add(lblZaposleni);
+		add(cmbxZaposleni);
+		add(lblClan);
+		add(cmbxClan);
+		add(lblPrimerak);
+		add(cmbxPrimerak);
+		add(btnSave);
+		add(btnCancel);
 		
 		
 	}
