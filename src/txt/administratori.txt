@@ -1,0 +1,2 @@
+0|markom|Markovic|Backa 86|6465616586|45000|markom|12345|MUSKI|false
+1|Petar|Petrovic|Kralja Petra 12|5684154|32000|petarp|12345|MUSKI|false

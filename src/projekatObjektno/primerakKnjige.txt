@@ -1,3 +1,0 @@
-0;2;true;1990;false;p;false
-1;2;true;1990;false;p;false
-2;90;false;9099;true;p;false

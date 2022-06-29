@@ -1,0 +1,6 @@
+0|2022-06-25|11|0|true|Ilija|Ilic|515616698|Sremska 87|MUSKI|false
+1|2022-03-25|2|2|false|Andreja|Andric|166561616|Licka 45|MUSKI|false
+2|2022-06-25|6|0|true|Marina|Marcic|064649846|Bulevar Oslobodjnja 18|MUSKI|false
+3|2020-06-25|12|0|false|dada|ddada|daad|dada|MUSKI|false
+4|2022-05-22|12|2|true|dada|dader|eread|dasdfge|MUSKI|false
+5|2022-06-27|2|0|true|ja|ja|ja|ja|MUSKI|false

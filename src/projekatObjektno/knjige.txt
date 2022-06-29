@@ -1,3 +1,0 @@
-m;0;n;z;1;ENGLESKI;p;3;false
-m;1;n;z;1;ENGLESKI;p;1;false
-m;2;n;z;1;ENGLESKI;p;2;false

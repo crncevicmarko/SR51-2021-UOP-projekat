@@ -1,0 +1,3 @@
+0|ivanai|Ivanovic|Novosadska 55|65181611|45000|ivanai|lozinka|MUSKI|false
+1|Marija|Maric|Vojvodjanska 46|6466516|40000|marijam|1234|MUSKI|false
+2|Nemanja|Nemanjic|Devet Jugovica 16|6525|35000|nemanjan|1234|MUSKI|false
