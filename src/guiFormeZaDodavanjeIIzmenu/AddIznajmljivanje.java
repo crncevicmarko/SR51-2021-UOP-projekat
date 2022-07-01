@@ -7,10 +7,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -18,7 +20,6 @@ import biblioteka.Biblioteka;
 import biblioteka.Iznajmljivanje;
 import biblioteka.Primerak;
 import net.miginfocom.swing.MigLayout;
-import osobe.Admin;
 import osobe.Clan;
 import osobe.Zaposleni;
 
@@ -33,12 +34,16 @@ public class AddIznajmljivanje  extends JFrame{
 	private JLabel lblIznajmio=new JLabel("Iznajmio: ");
 	private JComboBox cbIznajmio=new JComboBox();
 	private JLabel lblPrimerak=new JLabel("Primerak: ");
-	private JComboBox cbPrimerak=new JComboBox();
+	private JComboBox cbPrimerak=new JComboBox(); /*mora da se zakomentarise za zadn9*/
 	private JButton btnOk = new JButton("OK");
 	private JButton btnCancel = new JButton("Cancel");
 	private Biblioteka biblioteka;
 	private Iznajmljivanje iznajmljivanje;
 	private Zaposleni prijavljeni;
+	
+//	DefaultListModel model = new DefaultListModel();  /*zadatak 9*/
+//	private JList listPrimerak = new JList(model);
+//	ArrayList<Primerak> primerakA = new ArrayList<Primerak>();
 	
 	
 	public AddIznajmljivanje(Biblioteka biblioteka,Zaposleni prijavljeni) {
@@ -75,13 +80,21 @@ public class AddIznajmljivanje  extends JFrame{
 			cbPrimerak.addItem(primerak.getId());
 		}
 		txtIzdao.setText(prijavljeni.getKorisnickoIme());
+		
+		
+//		ArrayList<Primerak> primerci=biblioteka.sviNeobrisaniPrimerci(); /*zadatak 9*/
+//		for(Primerak primerak:primerci) {
+//			model.addElement(primerak.getId());
+//		}
+//		txtIzdao.setText(prijavljeni.getKorisnickoIme());
 	
 		MigLayout mig = new MigLayout("wrap 2", "[][]", "[]10[][]10[]");
 		setLayout(mig);
 		
 		
 		add(lblPrimerak);
-		add(cbPrimerak);
+		add(cbPrimerak); /*mora da se zakomentarise za zadn9*/
+//		add(listPrimerak); /*zadatak 9*/
 		add(lblIzdao);
 		add(txtIzdao);
 		add(lblIznajmio);
@@ -95,7 +108,7 @@ public class AddIznajmljivanje  extends JFrame{
 		
 		txtIzdao.setText(prijavljeni.getKorisnickoIme());
 		if(iznajmljivanje!=null) {
-			cbPrimerak.setSelectedItem(iznajmljivanje.getPrimerak().getId());
+			cbPrimerak.setSelectedItem(iznajmljivanje.getPrimerak().getId()); /*mora da se zakomentarise za zadn9*/
 			cbIznajmio.setSelectedItem(iznajmljivanje.getClan().getBrojClanskeKarte());
 			String datumIznajmljivanja =iznajmljivanje.getDatumIznajmljivanja().toString();
 			txtDatumIznajmljivanja.setText(datumIznajmljivanja);
@@ -117,8 +130,15 @@ public class AddIznajmljivanje  extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				int primerakId=cbPrimerak.getSelectedIndex();
-				Primerak primerak=biblioteka.sviNeobrisaniPrimerci().get(primerakId);
+//				int[] indeks = listPrimerak.getSelectedIndices();   *zadatak 9*/
+//				for (int i:indeks) {
+//					primerakA.add(biblioteka.sviNeobrisaniPrimerci().get(i));
+//				}
+//				System.out.println(primerakA);
+//				Primerak primerak = primerakA.get(0);
+				
+				int primerakId=cbPrimerak.getSelectedIndex(); /*mora da se zakomentarise za zadn9*/
+				Primerak primerak=biblioteka.sviNeobrisaniPrimerci().get(primerakId); /*mora da se zakomentarise za zadn9*/
 //				ArrayList<Primerak>primerci=new ArrayList<Primerak>();
 //				int [] odabraniPrimerci=
 				int iznajmioId=cbIznajmio.getSelectedIndex();
@@ -148,7 +168,6 @@ public class AddIznajmljivanje  extends JFrame{
 						biblioteka.sacuvajIznajmljivanje();
 						AddIznajmljivanje.this.setVisible(false);
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
